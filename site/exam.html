@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>மேம்பட்ட பயிற்சித் தேர்வு</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6a5af9;
+            --secondary-color: #4338ca;
+            --background-color: #f7fafc;
+            --container-bg: #ffffff;
+            --text-color: #2d3748;
+            --light-text-color: #718096;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', 'Latha', sans-serif; background-color: var(--background-color); color: var(--text-color); }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Pre-loader Animation */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: white;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .site-header { background-color: var(--container-bg); padding: 20px 0; border-bottom: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--primary-color); }
+
+        /* Main Quiz Area */
+        main { padding: 40px 0; }
+        .quiz-container { background-color: var(--container-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .quiz-title { font-size: 2em; text-align: center; margin-bottom: 30px; }
+
+        /* Page Transition Effect */
+        #quiz-content-wrapper {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #quiz-content-wrapper.fade-out {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .question-block { padding-bottom: 20px; margin-bottom: 30px; border-bottom: 1px dashed var(--border-color); }
+        .question { font-size: 1.3em; font-weight: 600; margin-bottom: 20px; display: flex; align-items: flex-start; }
+        .question-number {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            min-width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            margin-right: 15px;
+        }
+
+        .option { display: block; background-color: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; position: relative; padding-left: 25px; }
+        .option:hover { border-color: var(--primary-color); background-color: #f7f7ff; }
+        input[type="radio"] { display: none; }
+        input[type="radio"]:checked + label {
+            background-color: #e9eaff; border-color: var(--primary-color); font-weight: 600;
+        }
+        input[type="radio"]:checked + label::after {
+            content: '✔';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Pagination Controls */
+        #pagination-controls { display: flex; justify-content: center; align-items: center; margin-top: 40px; }
+        .page-btn, .page-link { border: 1px solid var(--border-color); background-color: white; color: var(--primary-color); padding: 10px 15px; margin: 0 5px; cursor: pointer; border-radius: 8px; font-weight: 600; transition: all 0.2s ease; }
+        .page-btn:disabled { color: #ccc; cursor: not-allowed; background-color: #f9f9f9; }
+        .page-link.active, .page-btn:not(:disabled):hover, .page-link:hover { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: white; border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .page-btn:active, .page-link:active { transform: translateY(0); box-shadow: none; }
+
+        /* Submit & Result */
+        #submit-btn { background: linear-gradient(45deg, #28a745, #228b22); color: white; font-size: 1.2em; font-weight: 600; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+        #submit-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        #result { font-size: 1.5em; font-weight: 600; text-align: center; margin-top: 30px; padding: 20px; border-radius: 8px; animation: scaleIn 0.5s ease-out; }
+        @keyframes scaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Footer */
+        .site-footer { background-color: #2d3748; color: #a0aec0; padding: 30px 0; text-align: center; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="site-header">
+        <div class="container logo">தேர்வுக்களம்</div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="quiz-container">
+                <h1 class="quiz-title">பொது அறிவுத் தேர்வு</h1>
+                <div id="quiz-content-wrapper">
+                    <div id="quiz"></div>
+                </div>
+                <div id="pagination-controls"></div>
+                <div id="submit-container" style="display: none; text-align: center; margin-top: 20px;">
+                    <button id="submit-btn">தேர்வை சமர்ப்பி</button>
+                </div>
+                <div id="result"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>&copy; 2024 உங்கள் இணையதளத்தின் பெயர்.</p></div>
+    </footer>
+
+    <script>
+        const questions = [/* உங்கள் 20+ கேள்விகளை இங்கே சேர்க்கவும் */
+            // Page 1
+            { question: "1. 'திருக்குறள்' எழுதியவர் யார்?", options: ["கம்பர்", "திருவள்ளுவர்", "இளங்கோவடிகள்", "ஔவையார்"], answer: "திருவள்ளுவர்" },
+            { question: "2. தமிழ்நாட்டின் தலைநகரம் எது?", options: ["மதுரை", "கோயம்புத்தூர்", "திருச்சி", "சென்னை"], answer: "சென்னை" },
+            { question: "3. சூரிய குடும்பத்தில் உள்ள மிகப்பெரிய கோள் எது?", options: ["பூமி", "வியாழன்", "செவ்வாய்", "சனி"], answer: "வியாழன்" },
+            { question: "4. இந்தியாவின் முதல் பிரதமர் யார்?", options: ["மகாத்மா காந்தி", "ஜவஹர்லால் நேரு", "சர்தார் பட்டேல்", "ராஜேந்திர பிரசாத்"], answer: "ஜவஹர்லால் நேரு" },
+            { question: "5. உலக பொதுமறை என அழைக்கப்படும் நூல் எது?", options: ["சிலப்பதிகாரம்", "நாலடியார்", "திருக்குறள்", "மணிமேகலை"], answer: "திருக்குறள்" },
+            { question: "6. இந்தியாவின் தேசிய விலங்கு எது?", options: ["சிங்கம்", "புலி", "யானை", "சிறுத்தை"], answer: "புலி" },
+            { question: "7. 'ஜெய் ஹிந்த்' என்ற முழக்கத்தை உருவாக்கியவர் யார்?", options: ["காந்திஜி", "நேரு", "சுபாஷ் சந்திர போஸ்", "பகத் சிங்"], answer: "சுபாஷ் சந்திர போஸ்" },
+            { question: "8. தமிழ் மொழியின் முதல் காப்பியம் எது?", options: ["மணிமேகலை", "சீவக சிந்தாமணி", "சிலப்பதிகாரம்", "வளையாபதி"], answer: "சிலப்பதிகாரம்" },
+            { question: "9. மனித உடலில் உள்ள எலும்புகளின் எண்ணிக்கை?", options: ["206", "300", "150", "256"], answer: "206" },
+            { question: "10. கரிகாலன் கட்டிய அணை எது?", options: ["மேட்டூர் அணை", "வைகை அணை", "கல்லணை", "பவானிசாகர் அணை"], answer: "கல்லணை" },
+            // Page 2
+            { question: "11. இந்தியாவின் தேசிய மலர் எது?", options: ["ரோஜா", "மல்லிகை", "தாமரை", "சூரியகாந்தி"], answer: "தாமரை" },
+            { question: "12. 'கீதாஞ்சலி' என்ற நூலை எழுதியவர் யார்?", options: ["காளிதாசர்", "பாரதியார்", "ரவீந்திரநாத் தாகூர்", "வள்ளலார்"], answer: "ரவீந்திரநாத் தாகூர்" },
+            { question: "13. உலகிலேயே மிக உயரமான சிகரம் எது?", options: ["ஆனைமுடி", "தொட்டபெட்டா", "காஞ்சன்ஜங்கா", "எவரெஸ்ட்"], answer: "எவரெஸ்ட்" },
+            { question: "14. தமிழ்நாட்டில் உள்ள மொத்த மாவட்டங்களின் எண்ணிக்கை (2024)?", options: ["32", "35", "38", "40"], answer: "38" },
+            { question: "15. 'திரவ தங்கம்' என்று அழைக்கப்படுவது எது?", options: ["தண்ணீர்", "பால்", "பெட்ரோலியம்", "தேன்"], answer: "பெட்ரோலியம்" },
+            { question: "16. இந்தியாவின் விண்வெளி ஆய்வு நிறுவனம் எது?", options: ["NASA", "ESA", "ISRO", "JAXA"], answer: "ISRO" },
+            { question: "17. ஐம்பெரும் காப்பியங்களில் ஒன்று எது?", options: ["நளவெண்பா", "குண்டலகேசி", "நன்னூல்", "திருவாசகம்"], answer: "குண்டலகேசி" },
+            { question: "18. தமிழகத்தின் மாநில மரம் எது?", options: ["தென்னை மரம்", "மாமரம்", "பனை மரம்", "ஆலமரம்"], answer: "பனை மரம்" },
+            { question: "19. இந்தியாவின் ஏவுகணை மனிதர் என அழைக்கப்படுபவர் யார்?", options: ["சி. வி. ராமன்", "ஏ.பி.ஜே. அப்துல் கலாம்", "ஹோமி பாபா", "விக்ரம் சாராபாய்"], answer: "ஏ.பி.ஜே. அப்துல் கலாம்" },
+            { question: "20. ஒலிம்பிக் கொடியில் எத்தனை வளையங்கள் உள்ளன?", options: ["4", "5", "6", "7"], answer: "5" }
+        ];
+
+        const quizWrapper = document.getElementById('quiz-content-wrapper');
+        const quizContainer = document.getElementById('quiz');
+        const paginationControls = document.getElementById('pagination-controls');
+        const submitContainer = document.getElementById('submit-container');
+        const submitButton = document.getElementById('submit-btn');
+        const resultContainer = document.getElementById('result');
+        const preloader = document.getElementById('preloader');
+
+        let currentPage = 1;
+        const questionsPerPage = 10;
+        const userAnswers = new Array(questions.length).fill(null);
+
+        function renderQuizPage(page) {
+            quizWrapper.classList.add('fade-out');
+
+            setTimeout(() => {
+                currentPage = page;
+                quizContainer.innerHTML = '';
+                const startIndex = (page - 1) * questionsPerPage;
+                const endIndex = startIndex + questionsPerPage;
+                const pageQuestions = questions.slice(startIndex, endIndex);
+
+                pageQuestions.forEach((currentQuestion, index) => {
+                    const globalIndex = startIndex + index;
+                    let optionsOutput = '';
+                    currentQuestion.options.forEach((option, oIndex) => {
+                        const optionId = `q${globalIndex}_option${oIndex}`;
+                        const isChecked = userAnswers[globalIndex] === option ? 'checked' : '';
+                        optionsOutput += `
+                            <div>
+                                <input type="radio" id="${optionId}" name="question${globalIndex}" value="${option}" ${isChecked}>
+                                <label for="${optionId}" class="option">${option}</label>
+                            </div>
+                        `;
+                    });
+
+                    quizContainer.innerHTML += `
+                        <div class="question-block">
+                            <div class="question">
+                                <span class="question-number">${globalIndex + 1}</span>
+                                <span>${currentQuestion.question.substring(currentQuestion.question.indexOf('.') + 1).trim()}</span>
+                            </div>
+                            <div class="options-container">${optionsOutput}</div>
+                        </div>
+                    `;
+                });
+                
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        const questionIndex = parseInt(e.target.name.replace('question', ''));
+                        userAnswers[questionIndex] = e.target.value;
+                    });
+                });
+                
+                renderPaginationControls();
+                window.scrollTo(0, 0);
+                quizWrapper.classList.remove('fade-out');
+            }, 300); // Wait for fade-out animation
+        }
+        
+        // This function is mostly the same, just included for completeness
+        function renderPaginationControls() {
+            const totalPages = Math.ceil(questions.length / questionsPerPage);
+            paginationControls.innerHTML = '';
+
+            const prevButton = document.createElement('button');
+            prevButton.innerText = 'Previous';
+            prevButton.classList.add('page-btn');
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener('click', () => renderQuizPage(currentPage - 1));
+            paginationControls.appendChild(prevButton);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement('button');
+                pageLink.innerText = i;
+                pageLink.classList.add('page-link');
+                if (i === currentPage) pageLink.classList.add('active');
+                pageLink.addEventListener('click', () => renderQuizPage(i));
+                paginationControls.appendChild(pageLink);
+            }
+
+            const nextButton = document.createElement('button');
+            nextButton.innerText = 'Next';
+            nextButton.classList.add('page-btn');
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener('click', () => renderQuizPage(currentPage + 1));
+            paginationControls.appendChild(nextButton);
+            
+            submitContainer.style.display = (currentPage === totalPages) ? 'block' : 'none';
+        }
+
+        function showResults() {
+            let score = 0;
+            questions.forEach((q, index) => { if (q.answer === userAnswers[index]) score++; });
+            quizContainer.style.display = 'none';
+            paginationControls.style.display = 'none';
+            submitContainer.style.display = 'none';
+            resultContainer.innerHTML = `தேர்வு முடிவுகள்: நீங்கள் ${questions.length}-க்கு ${score} மதிப்பெண்கள் பெற்றுள்ளீர்கள்.`;
+            resultContainer.style.backgroundColor = score > (questions.length / 2) ? '#f0fff4' : '#fff5f5';
+        }
+
+        window.onload = () => {
+            renderQuizPage(1);
+            submitButton.addEventListener('click', showResults);
+            // Hide preloader after everything is ready
+            preloader.style.opacity = '0';
+            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+        };
+    </script>
+</body>
+</html>
