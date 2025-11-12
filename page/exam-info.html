@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தேர்வுத் தகவல் - TNPSC வழிகாட்டி</title>
+    <link rel="shortcut icon" href="assets/img/logo/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <style>
+        /* ======================== */
+        /* 🎨 THEME COLORS (ORANGE) 🎨 */
+        /* ======================== */
+        :root {
+            --primary-color: #f39c12; 
+            --primary-dark: #e67e22;  
+            --primary-light: #fef5e7; 
+            --heading-color: #111111;
+            --text-color: #555555;
+            --text-light: #666666;
+            --white-color: #ffffff;
+            --light-gray-bg: #f9f9f9;
+            --border-color: #e0e0e0;
+            --success-color: #27ae60;
+            --info-color: #2980b9;
+        }
+
+        /* ======================== */
+        /* GLOBAL & BASE STYLES */
+        /* ======================== */
+        html { font-size: 100%; }
+        body {
+            font-family: 'Noto Sans', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--light-gray-bg);
+            color: var(--text-color);
+            font-size: 1rem; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+        /* Preloader (Same as before) */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--white-color); z-index: 9999; display: flex;
+            align-items: center; justify-content: center; transition: opacity 0.5s ease-out;
+        }
+        .loader-spinner {
+            border: 6px solid var(--primary-light); border-top: 6px solid var(--primary-color);
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        body.loaded .preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        section { padding: 60px 0; overflow: hidden; }
+        
+        /* Navigation (Same as before) */
+        .nav-info { background-color: var(--primary-dark); color: var(--white-color); padding: 8px 0; text-align: center; }
+        .nav-info h5 { color: var(--white-color); margin: 0; font-size: 0.95rem; font-weight: 500; }
+        .navbar { 
+            background-color: var(--white-color); border-bottom: 1px solid var(--border-color); 
+            position: sticky; top: 0; z-index: 1000; 
+        }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+        .logo_img{ width: 60px; height: 60px; }
+        .navbar-logo { color: var(--primary-color); margin: 0; font-weight: 800; display: flex; align-items: center; }
+        .navbar-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+        .navbar-links a { text-decoration: none; color: #333; font-weight: 700; transition: color 0.3s; }
+        .navbar-links a:hover { color: var(--primary-color); }
+        .navbar-links .active { color: var(--primary-dark) !important; }
+        .navbar-auth { display: flex; align-items: center; gap: 20px; }
+        .profile-icon { border-radius: 50%; background-color: var(--primary-light); text-align: center; padding: 10px 20px; color: var(--primary-color); font-weight: bolder; cursor: pointer; }
+        .mobile-menu-icon { display: none; font-size: 1.5rem; cursor: pointer; }
+        .mobile-menu-header { display: none; }
+        
+        /* Button Styles (Same as before) */
+        .btn-primary {
+            background-color: var(--primary-color); color: var(--white-color);
+            padding: 10px 20px; font-weight: 700; border-radius: 8px;
+            display: inline-block; transition: all 0.3s; border: none;
+            cursor: pointer; font-size: 1rem; text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark); transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+        }
+        .btn-download {
+            background-color: var(--success-color); color: var(--white-color);
+            padding: 10px 20px; border-radius: 8px; text-decoration: none;
+            font-weight: 700; display: inline-block; transition: all 0.3s;
+        }
+        .btn-download:hover {
+            background-color: #2ecc71; transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+        
+        /* Footer Styles (Same as before) */
+        .footer-section { background-color: #1a1a1a; color: #aaa; padding-top: 60px; }
+        .footer-bottom { border-top: 1px solid #333; padding: 20px 0; text-align: center; font-size: 0.9rem; }
+
+        /* --- 💡 Custom Styles for EXAM Page --- */
+        .pdf-header { /* Re-using class from book page */
+            background-color: var(--primary-light);
+            padding: 50px 0 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-content { text-align: center; }
+        .header-content h1 {
+            font-size: 2.5rem; color: var(--heading-color); margin-bottom: 10px;
+        }
+        .header-content p {
+            font-size: 1.15rem; color: var(--text-color); 
+            margin-bottom: 25px; font-weight: 500;
+        }
+        
+        /* Filter Bar (Same style as before) */
+        .filter-bar {
+            position: sticky; z-index: 900;
+            background-color: var(--white-color);
+            padding: 20px 0; margin-bottom: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+        .filter-controls {
+            display: flex; flex-wrap: wrap; 
+            justify-content: center; align-items: center; gap: 25px;
+        }
+        .filter-group {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .filter-controls label {
+            color: var(--text-color); font-weight: 600;
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .filter-controls select {
+            padding: 10px 15px; border: 1px solid var(--border-color); 
+            border-radius: 8px; background-color: var(--white-color);
+            color: var(--heading-color); font-size: 1rem; font-family: inherit;
+            cursor: pointer; min-width: 200px; appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23e67e22' d='M10 12l-6-6h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px; transition: all 0.2s;
+        }
+        .filter-controls select:focus {
+            outline: none; border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        
+        /* --- 💡 NEW DESIGN: List View --- */
+        .exam-list-section {
+            padding-top: 20px;
+        }
+        
+        .exam-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between list items */
+        }
+
+        .exam-list-item {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .exam-list-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0,0,0, 0.08);
+        }
+
+        .exam-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-grow: 1;
+            margin-right: 20px; /* Space before actions */
+        }
+        
+        .exam-icon {
+            font-size: 2.5rem;
+            width: 50px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        /* Icon Colors */
+        [data-exam="tnpsc-g1"] .exam-icon   { color: #e74c3c; } /* Red */
+        [data-exam="tnpsc-g2"] .exam-icon   { color: #3498db; } /* Blue */
+        [data-exam="tnpsc-g4"] .exam-icon   { color: #27ae60; } /* Green */
+        [data-exam="trb"] .exam-icon      { color: #8e44ad; } /* Purple */
+        [data-exam="tnusrb"] .exam-icon   { color: #d35400; } /* Dark Orange */
+        [data-exam="other"] .exam-icon    { color: #7f8c8d; } /* Gray */
+
+        .exam-details h4 {
+            font-size: 1.15rem;
+            color: var(--heading-color);
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+        .exam-details p {
+            font-size: 0.95rem;
+            color: var(--info-color);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .exam-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+            margin-top: 10px; /* Add margin for mobile wrap */
+        }
+        
+        .exam-date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+            text-align: right;
+            min-width: 130px; /* Give date space */
+        }
+        .exam-actions .btn-primary,
+        .exam-actions .btn-download {
+            padding: 8px 15px; /* Smaller buttons for list */
+            font-size: 0.9rem;
+            white-space: nowrap; /* Keep button text on one line */
+        }
+        .exam-actions i {
+             margin-right: 6px;
+        }
+        
+        /* No Results (Same as before) */
+        .no-results {
+            text-align: center; padding: 50px 20px;
+            background-color: var(--white-color);
+            border-radius: 12px; margin-top: 40px;
+            border: 2px dashed var(--border-color);
+            display: none;
+        }
+        .no-results h4 { color: var(--heading-color); font-size: 1.5rem; }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 1024px) {
+            .filter-controls { gap: 15px; }
+            .filter-group { flex-basis: calc(50% - 20px); justify-content: center; }
+            .filter-controls select { min-width: 150px; flex-grow: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .pdf-header h1 { font-size: 2rem; }
+            .filter-group { flex-basis: 100%; }
+
+            /* 💡 Responsive List View */
+            .exam-list-item {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align to left */
+            }
+            .exam-info {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            .exam-actions {
+                width: 100%;
+                justify-content: space-between; /* Space out date and button */
+            }
+            .exam-date { text-align: left; }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar-links { display: none; }
+            .mobile-menu-icon { display: block; }
+            .header-content h1 { font-size: 2rem; }
+            .exam-icon { font-size: 2rem; width: 40px; }
+            .exam-details h4 { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="preloader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <nav class="navbar" id="mainNavbar">
+        <div class="nav-info">
+            <h5>டி.என்.பி.எஸ்.சி படிப்பு மையம்</h5> </div>
+        <div class="container">
+            <h2 class="navbar-logo">
+                <a href="index.html">
+                <img src="assets/img/logo/logo.png" class="logo_img" alt="Logo">
+                </a>
+            </h2>
+            <ul class="navbar-links">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-logo">வழிகாட்டி</h3>
+                    <i class="fas fa-times mobile-menu-close"></i>
+                </div>
+                <li><a href="index.html">முகப்பு</a></li>
+                <li><a href="exam.html" class="active">தேர்வுகள்</a></li>
+                <li><a href="book.html">கையேடு </a></li>
+                <li><a href="#">அறிக்கைகள்</a></li>
+                <li><a href="#">அட்டவணை</a></li>
+            </ul>
+            <div class="navbar-auth">
+                <span class="profile-icon">J</span>
+            <i class="fas fa-bars mobile-menu-icon"></i>
+
+            </div>
+        </div>
+    </nav>
+    
+    <section class="pdf-header">
+        <div class="container header-content" data-aos="fade-up">
+            <h1>📢 தேர்வு அறிவிப்புகள் மற்றும் முடிவுகள்</h1>
+            <p>புதிய தேர்வுகள், அறிவிப்புகள், மற்றும் தேர்வு முடிவுகளை இங்கே காணலாம்.</p>
+        </div>
+    </section>
+    
+    <div class="filter-bar" id="filterBar" data-aos="fade-down">
+        <div class="container filter-controls">
+            
+            <div class="filter-group">
+                <label for="category-filter">வகை:</label>
+                <select id="category-filter" onchange="filterPDFs()">
+                    <option value="all">அனைத்தும்</option>
+                    <option value="notification">அறிவிப்புகள்</option>
+                    <option value="result">முடிவுகள்</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="exam-type-filter">தேர்வு:</label>
+                <select id="exam-type-filter" onchange="filterPDFs()">
+                    <option value="all">அனைத்து தேர்வுகள்</option>
+                    <option value="tnpsc-g1">TNPSC Group 1</option>
+                    <option value="tnpsc-g2">TNPSC Group 2</option>
+                    <option value="tnpsc-g4">TNPSC Group 4</option>
+                    <option value="trb">TRB</option>
+                    <option value="tnusrb">TNUSRB</option>
+                    <option value="other">மற்றவை</option>
+                </select>
+            </div>
+        
+        </div>
+    </div>
+
+    <section class="exam-list-section">
+        <div class="container">
+            
+            <div class="exam-list-container" id="examList">
+                
+                <div class="exam-list-item" data-category="notification" data-exam="tnpsc-g4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="exam-info">
+                        <div class="exam-icon"><i class="fas fa-bullhorn"></i></div>
+                        <div class="exam-details">
+                            <h4>TNPSC Group 4 - அறிவிப்பு</h4>
+                            <p>காலிப்பணியிடங்கள்: 8500+</p>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-date">கடைசி நாள்: 28/12/2025</span>
+                        <a href="#" class="btn-primary"><i class="fas fa-info-circle"></i> விவரங்கள்</a>
+                    </div>
+                </div>
+
+                <div class="exam-list-item" data-category="result" data-exam="tnpsc-g2" data-aos="fade-up" data-aos-delay="100">
+                    <div class="exam-info">
+                        <div class="exam-icon"><i class="fas fa-poll-h"></i></div>
+                        <div class="exam-details">
+                            <h4>TNPSC Group 2 - தேர்வு முடிவுகள்</h4>
+                            <p>நிலை: வெளியிடப்பட்டது</p>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-date">வெளியான நாள்: 10/11/2025</span>
+                        <a href="#" class="btn-download"><i class="fas fa-eye"></i> காண்க</a>
+                    </div>
+                </div>
+                
+                <div class="exam-list-item" data-category="notification" data-exam="trb" data-aos="fade-up" data-aos-delay="200">
+                    <div class="exam-info">
+                        <div class="exam-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <div class="exam-details">
+                            <h4>TRB - உதவிப் பேராசிரியர்</h4>
+                            <p>காலிப்பணியிடங்கள்: 1200</p>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-date">கடைசி நாள்: 15/01/2026</span>
+                        <a href="#" class="btn-primary"><i class="fas fa-info-circle"></i> விவரங்கள்</a>
+                    </div>
+                </div>
+
+                <div class="exam-list-item" data-category="result" data-exam="tnusrb" data-aos="fade-up" data-aos-delay="300">
+                    <div class="exam-info">
+                        <div class="exam-icon"><i class="fas fa-user-shield"></i></div>
+                        <div class="exam-details">
+                            <h4>TNUSRB PC - தேர்வு முடிவுகள்</h4>
+                            <p>நிலை: CV/PMT பட்டியல் வெளியீடு</p>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-date">வெளியான நாள்: 05/11/2025</span>
+                        <a href="#" class="btn-download"><i class="fas fa-eye"></i> காண்க</a>
+                    </div>
+                </div>
+                
+                <div class="exam-list-item" data-category="notification" data-exam="tnpsc-g1" data-aos="fade-up" data-aos-delay="400">
+                    <div class="exam-info">
+                        <div class="exam-icon"><i class="fas fa-landmark"></i></div>
+                        <div class="exam-details">
+                            <h4>TNPSC Group 1 - அறிவிப்பு</h4>
+                            <p>பதவிகள்: Deputy Collector, DSP</p>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-date">கடைசி நாள்: 10/12/2025</span>
+                        <a href="#" class="btn-primary"><i class="fas fa-info-circle"></i> விவரங்கள்</a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="no-results" id="noResultsMessage" data-aos="fade-up">
+                <h4>தேடல் முடிவுகள் எதுவும் கிடைக்கவில்லை.</h4>
+                <p>வடிகட்டிகளை மாற்றி அல்லது வேறு தேர்வைத் தேர்வு செய்யவும்.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="footer-bottom">
+            <p>&copy; 2025 TNPSC வழிகாட்டி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // AOS Initialization
+            AOS.init({ duration: 600, once: true }); // 💡 Faster animation
+            
+            // ** Mobile Menu Script ** (Same as before)
+            const menuIcon = document.querySelector('.mobile-menu-icon');
+            const closeIcon = document.querySelector('.mobile-menu-close');
+            const navLinks = document.querySelector('.navbar-links');
+            const openMenu = () => { document.body.classList.add('mobile-menu-active'); };
+            const closeMenu = () => { document.body.classList.remove('mobile-menu-active'); };
+            if (menuIcon) { menuIcon.addEventListener('click', openMenu); }
+            if (closeIcon) { closeIcon.addEventListener('click', closeMenu); }
+            if (navLinks) {
+                navLinks.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'A' && e.target.href) { closeMenu(); }
+                });
+            }
+
+            // ** Preloader Script ** (Same as before)
+            window.addEventListener('load', function () {
+                AOS.refresh();
+                const preloader = document.querySelector('.preloader');
+                if (preloader) { document.body.classList.add('loaded'); }
+            });
+
+            // ** Sticky Filter Bar Logic ** (Same as before)
+            const navbar = document.getElementById('mainNavbar');
+            const filterBar = document.getElementById('filterBar');
+            function setFilterBarPosition() {
+                if (!navbar || !filterBar) return;
+                const navbarHeight = navbar.offsetHeight;
+                filterBar.style.top = `${navbarHeight}px`;
+                const navbarBottom = navbar.getBoundingClientRect().bottom;
+                if (navbarBottom <= navbarHeight) { filterBar.classList.add('is-sticky'); } 
+                else { filterBar.classList.remove('is-sticky'); }
+            }
+            setFilterBarPosition();
+            window.addEventListener('scroll', setFilterBarPosition);
+            window.addEventListener('resize', setFilterBarPosition);
+
+            // Initial filter call
+            filterPDFs();
+        });
+
+        // --- 💡 SCRIPT: Filter Script Updated for List View ---
+        function filterPDFs() {
+            const categoryFilter = document.getElementById('category-filter').value;
+            const examFilter = document.getElementById('exam-type-filter').value;
+            
+            const examListContainer = document.getElementById('examList');
+            // 💡 Select the new list items
+            const examItems = examListContainer.querySelectorAll('.exam-list-item');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            
+            let visibleCount = 0;
+
+            examItems.forEach(item => {
+                const cardCategory = item.getAttribute('data-category');
+                const cardExam = item.getAttribute('data-exam');
+                
+                const matchesCategory = (categoryFilter === 'all' || cardCategory === categoryFilter);
+                const matchesExam = (examFilter === 'all' || cardExam === examFilter);
+
+                if (matchesCategory && matchesExam) {
+                    item.style.display = 'flex'; // 💡 Use 'flex' to show
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Show/Hide No Results Message
+            if (visibleCount === 0) {
+                noResultsMessage.style.display = 'block';
+                examListContainer.style.display = 'none'; // 💡 Hide container
+            } else {
+                noResultsMessage.style.display = 'none';
+                examListContainer.style.display = 'flex'; // 💡 Show container
+            }
+        }
+    </script>
+</body>
+</html>
