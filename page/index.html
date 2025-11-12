@@ -547,7 +547,14 @@
             .hero-image-area { margin-top: 30px; }
             .hero-image-placeholder { height: 300px; }
             .hero-stats-card { width: 80%; } 
-            .categories-grid, .courses-grid, .footer-grid { grid-template-columns: 1fr; }
+            
+            /* START: ✅ MODIFICATION FOR CATEGORIES SECTION ✅ */
+            .category-card {
+                justify-content: center; /* Center the icon and text horizontally */
+            }
+            .courses-grid, .footer-grid { grid-template-columns: 1fr; }
+            /* END: ✅ MODIFICATION FOR CATEGORIES SECTION ✅ */
+
             .info-card { padding: 30px; }
             .info-card h3 { font-size: 1.5rem; } 
             .info-card-image { width: 120px; height: 120px; }
@@ -556,6 +563,7 @@
             .contact-container { padding: 20px; }
             .footer-col { text-align: center; }
             .footer-socials { justify-content: center; }
+            .category-card { flex-direction: column; }
 
             /* CTA Section Responsive */
             .cta-container { flex-direction: column; text-align: center; padding: 40px 20px; }
@@ -577,7 +585,7 @@
             .btn-secondary { padding: 10px 20px; font-size: 0.95rem; }
             .btn-outline { padding: 8px 16px; font-size: 0.95rem; }
             .contact-container { padding: 15px; }
-            .category-card { font-size: 1rem; padding: 25px 20px; }
+            .category-card { font-size: 12px; padding: 25px 20px; }
             .info-card { flex-direction: column; text-align: center; }
             .info-card-image { width: 100px; height: 100px; margin-bottom: 20px; }
             
