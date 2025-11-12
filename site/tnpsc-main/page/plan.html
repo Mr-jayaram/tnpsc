@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>படிப்பு அட்டவணை காலண்டர் - TNPSC வழிகாட்டி</title>
+    <link rel="shortcut icon" href="assets/img/logo/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    
+    <style>
+        /* ======================== */
+        /* 🎨 THEME COLORS (ORANGE) 🎨 */
+        /* ======================== */
+        :root {
+            --primary-color: #f39c12; 
+            --primary-dark: #e67e22;  
+            --primary-light: #fef5e7; 
+            --heading-color: #111111;
+            --text-color: #555555;
+            --text-light: #666666;
+            --white-color: #ffffff;
+            --light-gray-bg: #f9f9f9;
+            --border-color: #e0e0e0;
+            --success-color: #27ae60;  /* For 'Complete' */
+            --pending-color: #e67e22;  /* For 'Pending' */
+        }
+
+        /* ======================== */
+        /* GLOBAL & BASE STYLES */
+        /* ======================== */
+        html { font-size: 100%; }
+        body {
+            font-family: 'Noto Sans', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--light-gray-bg);
+            color: var(--text-color);
+            font-size: 1rem; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+        /* Preloader (Same as before) */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--white-color); z-index: 9999; display: flex;
+            align-items: center; justify-content: center; transition: opacity 0.5s ease-out;
+        }
+        .loader-spinner {
+            border: 6px solid var(--primary-light); border-top: 6px solid var(--primary-color);
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        body.loaded .preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        section { padding: 40px 0 60px 0; overflow: hidden; }
+        
+        /* Navigation (Same as before) */
+        .nav-info { background-color: var(--primary-dark); color: var(--white-color); padding: 8px 0; text-align: center; }
+        .nav-info h5 { color: var(--white-color); margin: 0; font-size: 0.95rem; font-weight: 500; }
+        .navbar { 
+            background-color: var(--white-color); border-bottom: 1px solid var(--border-color); 
+            position: sticky; top: 0; z-index: 1000; 
+        }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+        .logo_img{ width: 60px; height: 60px; }
+        .navbar-logo { color: var(--primary-color); margin: 0; font-weight: 800; display: flex; align-items: center; }
+        .navbar-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+        .navbar-links a { text-decoration: none; color: #333; font-weight: 700; transition: color 0.3s; }
+        .navbar-links a:hover { color: var(--primary-color); }
+        .navbar-links .active { color: var(--primary-dark) !important; }
+        .navbar-auth { display: flex; align-items: center; gap: 20px; }
+        .profile-icon { border-radius: 50%; background-color: var(--primary-light); text-align: center; padding: 10px 20px; color: var(--primary-color); font-weight: bolder; cursor: pointer; }
+        .mobile-menu-icon { display: none; font-size: 1.5rem; cursor: pointer; }
+        .mobile-menu-header { display: none; }
+        
+        /* Button Style */
+        .btn-primary {
+            background-color: var(--primary-color); color: var(--white-color);
+            padding: 10px 20px; font-weight: 700; border-radius: 8px;
+            display: inline-block; transition: all 0.3s; border: none;
+            cursor: pointer; font-size: 1rem; text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Footer Styles (Same as before) */
+        .footer-section { background-color: #1a1a1a; color: #aaa; padding-top: 60px; }
+        .footer-bottom { border-top: 1px solid #333; padding: 20px 0; text-align: center; font-size: 0.9rem; }
+
+        /* --- Custom Styles for CALENDAR Page --- */
+        .pdf-header {
+            background-color: var(--primary-light);
+            padding: 50px 0 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-content { text-align: center; }
+        .header-content h1 {
+            font-size: 2.5rem; color: var(--heading-color); margin-bottom: 10px;
+        }
+        .header-content p {
+            font-size: 1.15rem; color: var(--text-color); 
+            margin-bottom: 25px; font-weight: 500;
+        }
+
+        /* --- 💡 NEW: Stats Bar Styles --- */
+        .stats-bar-container {
+            background-color: var(--white-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0, 0.07);
+        }
+        .stats-bar-container h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--heading-color);
+            font-size: 1.3rem;
+        }
+        .progress-bar-main {
+            height: 12px;
+            background-color: #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress-bar-main-fill {
+            height: 100%;
+            width: 0%; /* Will be set by JS */
+            background-color: var(--success-color);
+            border-radius: 12px;
+            transition: width 0.5s ease;
+        }
+        .stats-boxes {
+            display: flex;
+            flex-wrap: wrap; /* For responsive */
+            justify-content: space-around;
+            gap: 15px;
+        }
+        .stats-box {
+            background-color: var(--light-gray-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            flex-basis: 200px;
+            flex-grow: 1;
+        }
+        .stats-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .stats-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        /* Color coding stats */
+        .stats-box.total .stats-value { color: var(--info-color); }
+        .stats-box.complete .stats-value { color: var(--success-color); }
+        .stats-box.pending .stats-value { color: var(--pending-color); }
+        .stats-box.percentage .stats-value { color: var(--primary-dark); }
+        
+
+        /* --- Calendar Container --- */
+        .calendar-container {
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0, 0.07);
+            padding: 25px;
+        }
+        /* --- FullCalendar Custom Styles --- */
+        #calendar { max-width: 1100px; margin: 0 auto; }
+        .fc .fc-col-header-cell-cushion {
+            font-size: 0.9rem; color: var(--primary-dark);
+            font-weight: 700; padding: 10px 4px; text-decoration: none;
+        }
+        .fc .fc-toolbar-title {
+            color: var(--heading-color); font-weight: 700;
+            font-family: 'Noto Sans Tamil', sans-serif;
+        }
+        .fc .fc-button-primary {
+            background-color: var(--primary-color); border-color: var(--primary-color);
+            font-weight: 600;
+        }
+        .fc .fc-button-primary:hover {
+            background-color: var(--primary-dark); border-color: var(--primary-dark);
+        }
+        .fc .fc-today-button {
+            background-color: var(--primary-light) !important;
+            border-color: var(--primary-color) !important;
+            color: var(--primary-dark) !important; font-weight: 700;
+        }
+        .fc .fc-daygrid-day.fc-day-today {
+            background-color: var(--primary-light);
+        }
+        .fc-event {
+            cursor: pointer; border: none !important;
+            padding: 6px 8px; font-weight: 600;
+            font-size: 0.85rem; color: var(--white-color) !important;
+        }
+        .event-complete { background-color: var(--success-color) !important; }
+        .event-complete .fc-event-title::before {
+            content: '✓ '; font-weight: 700; margin-right: 4px;
+        }
+        .event-pending { background-color: var(--pending-color) !important; }
+         .event-pending .fc-event-title::before {
+            content: '⏳ '; margin-right: 4px;
+        }
+        
+        
+        /* --- Modal Styles --- */
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0, 0.6);
+            z-index: 2000;
+            display: none; 
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: var(--white-color);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0, 0.1);
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-header h4 {
+            margin: 0;
+            color: var(--heading-color);
+            font-size: 1.2rem;
+        }
+        .modal-close {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #aaa;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .modal-body { padding: 25px; }
+        #modal-plan-list {
+            list-style: none; padding: 0; margin: 0;
+            max-height: 200px; overflow-y: auto;
+        }
+        .modal-plan-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .modal-plan-item span {
+            font-size: 1rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        /* Status Toggle Switch ("Ready Box") */
+        .plan-status-toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px; height: 24px;
+        }
+        .plan-status-toggle input {
+            opacity: 0; width: 0; height: 0;
+        }
+        .toggle-switch {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .3s;
+            border-radius: 24px;
+        }
+        .toggle-switch:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        .plan-status-toggle input:checked + .toggle-switch {
+            background-color: var(--success-color);
+        }
+        .plan-status-toggle input:checked + .toggle-switch:before {
+            transform: translateX(20px);
+        }
+
+        /* Add Plan Form */
+        .add-plan-form {
+            margin-top: 25px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 25px;
+        }
+        .add-plan-form p {
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-top: 0; margin-bottom: 10px;
+        }
+        .add-plan-form-controls { display: flex; gap: 10px; }
+        .add-plan-form-controls input {
+            flex-grow: 1;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Noto Sans Tamil', sans-serif;
+            font-size: 1rem;
+        }
+        .add-plan-form-controls button {
+            font-size: 0.9rem;
+            padding: 10px 15px;
+            white-space: nowrap;
+        }
+        
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            .pdf-header h1 { font-size: 2rem; }
+            .calendar-container { padding: 15px; }
+            .fc .fc-toolbar { flex-direction: column; gap: 15px; }
+            .fc .fc-toolbar-title { font-size: 1.5rem; }
+            .stats-box { flex-basis: 45%; } /* Two boxes per row */
+        }
+        @media (max-width: 480px) {
+            .navbar-links { display: none; }
+            .mobile-menu-icon { display: block; }
+            .header-content h1 { font-size: 1.8rem; }
+            .add-plan-form-controls { flex-direction: column; }
+            .stats-box { flex-basis: 100%; } /* One box per row */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="preloader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <nav class="navbar" id="mainNavbar">
+        <div class="nav-info">
+            <h5>டி.என்.பி.எஸ்.சி படிப்பு மையம்</h5> </div>
+        <div class="container">
+            <h2 class="navbar-logo">
+                <a href="index.html">
+                <img src="assets/img/logo/logo.png" class="logo_img" alt="Logo">
+                </a>
+            </h2>
+            <ul class="navbar-links">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-logo">வழிகாட்டி</h3>
+                    <i class="fas fa-times mobile-menu-close"></i>
+                </div>
+                <li><a href="index.html">முகப்பு</a></li>
+                <li><a href="exam.html">தேர்வுகள்</a></li>
+                <li><a href="book.html">கையேடு </a></li>
+                <li><a href="#">அறிக்கைகள்</a></li>
+                <li><a href="schedule.html" class="active">அட்டவணை</a></li>
+            </ul>
+            <div class="navbar-auth">
+                <span class="profile-icon">J</span>
+            <i class="fas fa-bars mobile-menu-icon"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="pdf-header">
+        <div class="container header-content" data-aos="fade-up">
+            <h1>🗓️ படிப்பு அட்டவணை காலண்டர்</h1>
+            <p>உங்கள் தினசரி திட்டங்களை இங்கே கண்டு, நிர்வகிக்கவும்.</p>
+        </div>
+    </section>
+    
+    <section class="schedule-section">
+        <div class="container">
+            
+            <div class="stats-bar-container" data-aos="fade-up">
+                <h3>மாதாந்திர சுருக்கம்</h3>
+                <div class="progress-bar-main">
+                    <div class="progress-bar-main-fill" id="overall-progress-fill"></div>
+                </div>
+                <div class="stats-boxes">
+                    <div class="stats-box total">
+                        <span class="stats-value" id="stats-total">0</span>
+                        <span class="stats-label">மொத்த திட்டங்கள்</span>
+                    </div>
+                    <div class="stats-box complete">
+                        <span class="stats-value" id="stats-complete">0</span>
+                        <span class="stats-label">முடிக்கப்பட்டவை</span>
+                    </div>
+                    <div class="stats-box pending">
+                        <span class="stats-value" id="stats-pending">0</span>
+                        <span class="stats-label">நிலுவையில்</span>
+                    </div>
+                    <div class="stats-box percentage">
+                        <span class="stats-value" id="stats-percentage">0%</span>
+                        <span class="stats-label">ஒட்டுமொத்த நிறைவு</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calendar-container" data-aos="fade-up" data-aos-delay="100">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-backdrop" id="scheduleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-date">...</h4>
+                <span class="modal-close" id="modalCloseBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <ul id="modal-plan-list">
+                    </ul>
+                <div class="add-plan-form">
+                    <p>புதிய திட்டம் சேர்:</p>
+                    <div class="add-plan-form-controls">
+                        <input type="text" id="new-plan-input" placeholder="திட்டத்தின் பெயர்...">
+                        <button class="btn-primary" id="add-plan-btn">
+                            <i class="fas fa-plus"></i> சேர்
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer-section">
+        <div class="footer-bottom">
+            <p>&copy; 2025 TNPSC வழிகாட்டி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+        </div>
+    </footer>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/ta.js'></script>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // AOS Initialization
+            AOS.init({ duration: 600, once: true });
+            
+            // Preloader Script
+            window.addEventListener('load', function () {
+                AOS.refresh();
+                const preloader = document.querySelector('.preloader');
+                if (preloader) { document.body.classList.add('loaded'); }
+            });
+            
+            
+            // --- 💡 FullCalendar + Modal + Stats Logic ---
+            
+            var calendar; // Make calendar variable global in this scope
+            var currentModalDate = ''; 
+            
+            // --- Modal DOM Elements ---
+            const modalBackdrop = document.getElementById('scheduleModal');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const modalDateEl = document.getElementById('modal-date');
+            const modalPlanListEl = document.getElementById('modal-plan-list');
+            const addPlanBtn = document.getElementById('add-plan-btn');
+            const newPlanInput = document.getElementById('new-plan-input');
+
+            // --- 💡 Stats Bar DOM Elements ---
+            const statsTotalEl = document.getElementById('stats-total');
+            const statsCompleteEl = document.getElementById('stats-complete');
+            const statsPendingEl = document.getElementById('stats-pending');
+            const statsPercentageEl = document.getElementById('stats-percentage');
+            const progressFillEl = document.getElementById('overall-progress-fill');
+
+            
+            // --- 💡 NEW: Function to Update Stats Bar ---
+            function updateStatsBar() {
+                if (!calendar) return; // Don't run if calendar isn't initialized
+
+                const allEvents = calendar.getEvents();
+                const total = allEvents.length;
+                const complete = allEvents.filter(event => event.classNames.includes('event-complete')).length;
+                const pending = total - complete;
+                const percentage = (total === 0) ? 0 : Math.round((complete / total) * 100);
+
+                // Update the text content
+                statsTotalEl.textContent = total;
+                statsCompleteEl.textContent = complete;
+                statsPendingEl.textContent = pending;
+                statsPercentageEl.textContent = percentage + '%';
+
+                // Update the progress bar width
+                progressFillEl.style.width = percentage + '%';
+            }
+
+
+            // --- Modal Functions ---
+            function openModal(dateStr) {
+                currentModalDate = dateStr;
+                const dateObj = new Date(dateStr);
+                const formattedDate = dateObj.toLocaleDateString('ta-IN', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                });
+                modalDateEl.textContent = formattedDate;
+                displayPlansForDate(dateStr);
+                modalBackdrop.style.display = 'flex';
+            }
+
+            function closeModal() {
+                modalBackdrop.style.display = 'none';
+                newPlanInput.value = '';
+            }
+            
+            function displayPlansForDate(dateStr) {
+                modalPlanListEl.innerHTML = '';
+                const allEvents = calendar.getEvents();
+                const dayEvents = allEvents.filter(event => event.startStr === dateStr);
+
+                if (dayEvents.length === 0) {
+                    modalPlanListEl.innerHTML = '<p style="text-align: center; color: #777;">இந்தத் தேதிக்கு திட்டங்கள் எதுவும் இல்லை.</p>';
+                    return;
+                }
+
+                dayEvents.forEach(event => {
+                    const isComplete = event.classNames.includes('event-complete');
+                    const li = document.createElement('li');
+                    li.className = 'modal-plan-item';
+                    li.innerHTML = `
+                        <span>${event.title}</span>
+                        <label class="plan-status-toggle">
+                            <input type="checkbox" data-event-id="${event.id}" ${isComplete ? 'checked' : ''}>
+                            <span class="toggle-switch"></span>
+                        </label>
+                    `;
+                    modalPlanListEl.appendChild(li);
+                });
+            }
+
+            // --- Event Listeners for Modal ---
+            modalCloseBtn.onclick = closeModal;
+            modalBackdrop.onclick = function(e) {
+                if (e.target === modalBackdrop) closeModal();
+            };
+            
+            // Add Plan Button
+            addPlanBtn.onclick = function() {
+                const newTitle = newPlanInput.value.trim();
+                if (newTitle === '') {
+                    alert('திட்டத்தின் பெயரை உள்ளிடவும்');
+                    return;
+                }
+                
+                calendar.addEvent({
+                    id: 'plan-' + Date.now(),
+                    title: newTitle,
+                    date: currentModalDate,
+                    className: 'event-pending'
+                });
+                
+                displayPlansForDate(currentModalDate);
+                newPlanInput.value = '';
+                updateStatsBar(); // 💡 Update stats after adding
+            };
+            
+            // Status Toggle Switch
+            modalPlanListEl.addEventListener('change', function(e) {
+                if (e.target.type === 'checkbox') {
+                    const eventId = e.target.dataset.eventId;
+                    const isComplete = e.target.checked;
+                    const eventToUpdate = calendar.getEventById(eventId);
+                    
+                    if (eventToUpdate) {
+                        eventToUpdate.setProp('className', isComplete ? 'event-complete' : 'event-pending');
+                        updateStatsBar(); // 💡 Update stats after changing status
+                    }
+                }
+            });
+
+
+            // --- FullCalendar Initialization ---
+            var calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'ta',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek'
+                },
+                editable: true,
+                selectable: true,
+                
+                dateClick: function(info) {
+                    openModal(info.dateStr);
+                },
+                
+                eventClick: function(info) {
+                    openModal(info.event.startStr);
+                },
+
+                // Mock Data with IDs
+                events: [
+                    { id: 'evt1', title: 'வரலாறு - சிந்து சமவெளி', date: '2025-11-10', className: 'event-complete' },
+                    { id: 'evt2', title: 'கணிதம் - விகிதம்', date: '2025-11-11', className: 'event-complete' },
+                    { id: 'evt3', title: 'புவியியல் - ஆறுகள்', date: '2025-11-12', className: 'event-pending' },
+                    { id: 'evt4', title: 'அரசியலமைப்பு - முகவுரை', date: '2025-11-13', className: 'event-pending' },
+                    { id: 'evt5', title: 'தமிழ் - 6ஆம் வகுப்பு', date: '2025-11-13', className: 'event-complete' },
+                    { id: 'evt6', title: 'வாராந்திர தேர்வு', date: '2025-11-15', className: 'event-pending' }
+                ]
+            });
+            
+            calendar.render();
+            
+            // 💡 Call stats bar on initial load
+            updateStatsBar(); 
+            
+        });
+    </script>
+</body>
+</html>
