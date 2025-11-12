@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>மாதிரித் தேர்வு - டிஎன்பிஎஸ்சி வழிகாட்டி</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ======================== */
+        /* 🎨 THEME COLORS (ORANGE) 🎨 */
+        /* ======================== */
+        :root {
+            --primary-color: #f39c12;   /* Main Orange */
+            --primary-dark: #e67e22;    /* Darker Orange for Hover */
+            --primary-light: #fef5e7;   /* Very Light Orange for Backgrounds */
+            
+            --heading-color: #111111;
+            --text-color: #555555;
+            --text-light: #666666;
+            
+            --white-color: #ffffff;
+            --light-gray-bg: #f9f9f9;
+            --border-color: #eeeeee;
+
+            /* Test Page Specific Colors */
+            --answered-color: #27ae60;
+            --marked-color: #8e44ad;
+            --not-answered-color: #7f8c8d;
+            --current-question-bg: var(--primary-light);
+        }
+
+        /* ======================== */
+        /* GLOBAL STYLES */
+        /* ======================== */
+        html { scroll-behavior: smooth; /* <<< NEW: For smooth scrolling */ }
+        body {
+            font-family: 'Noto Sans', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray-bg);
+            color: var(--text-color);
+            font-size: 1rem; 
+            line-height: 1.6; 
+        }
+        .container { width: 95%; max-width: 1400px; margin: 0 auto; }
+        section { padding: 30px 0; }
+        
+        /* Button Styles */
+        .btn-primary, .btn-secondary, .btn-outline {
+            padding: 10px 20px; text-decoration: none; font-weight: 700; border-radius: 8px;
+            display: inline-block; transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem;
+        }
+        .btn-primary { background-color: var(--primary-color); color: var(--white-color); }
+        .btn-primary:hover { background-color: var(--primary-dark); }
+        
+        /* ======================== */
+        /* NAVBAR STYLING */
+        /* ======================== */
+        .navbar { background-color: var(--white-color); padding: 15px 0; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .navbar-logo { color: var(--primary-color); margin: 0; font-weight: 800; }
+        .navbar-auth { display: flex; align-items: center; gap: 20px; }
+        .profile-icon{ border-radius: 50%; background-color: var(--primary-light); text-align: center; padding: 10px 20px; color: var(--primary-color); font-weight: bolder; cursor: pointer; }
+
+        /* ================================== */
+        /* 🚀 TEST PAGE STYLES V3 🚀     */
+        /* ================================== */
+
+        .test-status-bar {
+            display: flex; justify-content: space-between; align-items: center; background-color: var(--white-color);
+            padding: 15px 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
+        }
+        .test-info h1 { font-size: 1.5rem; color: var(--heading-color); margin: 0; }
+        .timer-container { display: flex; align-items: center; gap: 15px; }
+        .timer-container h3 { margin: 0; font-size: 1.1rem; color: var(--text-light); font-weight: 500; }
+        #timer-display { font-size: 2.2rem; font-weight: 700; color: var(--primary-dark); background-color: var(--primary-light); padding: 5px 15px; border-radius: 8px; }
+
+        .test-body-grid { display: grid; grid-template-columns: 320px 1fr; gap: 30px; align-items: start; }
+        
+        /* --- Left Column: Sidebar with Palette --- */
+        .question-sidebar { position: sticky; top: 100px; }
+        .palette-card {
+            background-color: var(--white-color); border-radius: 12px; border: 1px solid var(--border-color);
+            padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); max-height: 60vh; overflow-y: auto; /* <<< NEW: For scrolling palette */
+        }
+        .palette-card h3 { margin: 0 0 15px 0; text-align: center; font-size: 1.1rem; color: var(--heading-color); }
+        .question-palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+        .palette-btn {
+            width: 100%; height: 45px; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer;
+            border: 2px solid #bdc3c7; background-color: #ecf0f1; color: var(--not-answered-color); transition: all 0.2s ease;
+        }
+        .palette-btn.answered { background-color: var(--answered-color); color: white; border-color: var(--answered-color); }
+        .palette-btn.marked { background-color: var(--marked-color); color: white; border-color: var(--marked-color); }
+        
+        .palette-legend { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; font-size: 0.85rem; justify-content: center; padding-top: 15px; border-top: 1px solid var(--border-color);}
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .legend-item span { width: 15px; height: 15px; border-radius: 3px; }
+        .submit-test-btn { width: 100%; margin-top: 20px; }
+
+        /* --- Right Column: Main Question Content --- */
+        .main-question-content {
+            background-color: var(--white-color); border-radius: 12px; border: 1px solid var(--border-color);
+            padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+        
+        /* <<< NEW: Styles for individual question blocks */
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .question-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .question-header { margin-bottom: 20px; }
+        .question-header h3 { margin: 0; font-size: 1.3rem; color: var(--heading-color); }
+        .question-content p { font-size: 1.2rem; line-height: 1.7; margin: 0 0 25px 0; }
+        
+        .options-list { list-style: none; padding: 0; margin: 0; }
+        .options-list li { margin-bottom: 15px; }
+        .options-list input[type="radio"] { display: none; }
+        .options-list label {
+            display: block; padding: 15px 20px; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer;
+            transition: all 0.3s ease; position: relative; padding-left: 50px;
+        }
+        .options-list label:before {
+            content: ''; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px;
+            border: 2px solid var(--border-color); border-radius: 50%; transition: all 0.2s ease;
+        }
+        .options-list label:hover { background-color: var(--primary-light); border-color: var(--primary-color); }
+        .options-list input[type="radio"]:checked + label { background-color: var(--primary-light); border-color: var(--primary-color); font-weight: 700; color: var(--primary-dark); }
+        .options-list input[type="radio"]:checked + label:before { background-color: var(--primary-color); border-color: var(--primary-dark); }
+        
+
+        /* ======================== */
+        /* RESPONSIVE STYLES      */
+        /* ======================== */
+        @media (max-width: 992px) {
+            .test-body-grid { grid-template-columns: 1fr; }
+            .question-sidebar { position: static; }
+        }
+        @media (max-width: 768px) {
+            section { padding: 20px 0; }
+            .test-status-bar { flex-direction: column; text-align: center; gap: 15px; }
+            #timer-display { font-size: 2rem; }
+            .main-question-content { padding: 20px; }
+            .question-content p { font-size: 1.1rem; }
+            .question-sidebar{ display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <h2 class="navbar-logo">வழிகாட்டி</h2>
+            <div class="navbar-auth">
+                <i class="fas fa-search"></i>
+                <span class="profile-icon">J</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="test-page-section">
+        <div class="container">
+            <div class="test-status-bar">
+                <div class="test-info">
+                    <h1>பொதுத் தமிழ் - மாதிரித் தேர்வு 1</h1>
+                </div>
+                <div class="timer-container">
+                    <h3>மீதமுள்ள நேரம்:</h3>
+                    <div id="timer-display">90:00</div>
+                </div>
+            </div>
+
+            <div class="test-body-grid">
+                <!-- Left Column: Sidebar with Palette -->
+                <aside class="question-sidebar">
+                    <div class="palette-card">
+                        <h3>வினாக்கள்</h3>
+                        <div class="question-palette">
+                            <!-- JS will dynamically generate these buttons -->
+                        </div>
+                         <div class="palette-legend">
+                            <div class="legend-item"><span style="background-color: var(--answered-color);"></span> பதிலளித்தவை</div>
+                            <div class="legend-item"><span style="background-color: #ecf0f1; border: 1px solid #bdc3c7;"></span> பதிலளிக்காதவை</div>
+                            <div class="legend-item"><span style="background-color: var(--marked-color);"></span> மதிப்பாய்விற்கு</div>
+                        </div>
+                    </div>
+                    <button class="btn-primary submit-test-btn">தேர்வை சமர்ப்பி</button>
+                </aside>
+
+                <!-- Right Column: Main Question Content (JS will fill this) -->
+                <main class="main-question-content">
+                    <!-- <<< MODIFIED: This section is now empty. JS will populate it. -->
+                </main>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer-section">
+        <div class="container">
+             <div class="footer-bottom" style="border: none; padding-top: 0;">
+                <p>&copy; 2025 TNPSC வழிகாட்டி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+            </div>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    
+    // --- TIMER SCRIPT ---
+    const timerDisplay = document.getElementById('timer-display');
+    if (timerDisplay) {
+        let totalSeconds = 90 * 60; // 90 நிமிடங்கள்
+        const timerInterval = setInterval(() => {
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                alert("நேரம் முடிந்தது!");
+                timerDisplay.textContent = "00:00";
+                return;
+            }
+            totalSeconds--;
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    }
+
+    // <<< NEW: Data source for all questions
+    const allQuestionsData = [
+        {
+            id: 1,
+            question: '"யாதும் ஊரே யாவரும் கேளிர்" - இவ்வடிகள் இடம்பெற்றுள்ள நூல் எது?',
+            options: ['A) திருக்குறள்', 'B) புறநானூறு', 'C) அகநானூறு', 'D) சிலப்பதிகாரம்']
+        },
+        {
+            id: 2,
+            question: 'சிலப்பதிகாரத்தின் ஆசிரியர் யார்?',
+            options: ['A) சீத்தலைச் சாத்தனார்', 'B) கம்பர்', 'C) இளங்கோவடிகள்', 'D) திருவள்ளுவர்']
+        },
+        {
+            id: 3,
+            question: 'பத்துப்பாட்டு நூல்களில் பொருந்தாதது எது?',
+            options: ['A) திருமுருகாற்றுப்படை', 'B) மதுரைக்காஞ்சி', 'C) நெடுநல்வாடை', 'D) பரிபாடல்']
+        },
+        {
+            id: 4,
+            question: '"உண்டி கொடுத்தோர் உயிர் கொடுத்தோரே" - இவ்வரி இடம்பெறும் நூல் எது?',
+            options: ['A) மணிமேகலை', 'B) சீவக சிந்தாமணி', 'C) புறநானூறு', 'D) நற்றிணை']
+        },
+        {
+            id: 5,
+            question: 'திராவிட மொழிகளின் ஒப்பிலக்கணம் என்ற நூலை எழுதியவர் யார்?',
+            options: ['A) ஜி.யு. போப்', 'B) வீரமாமுனிவர்', 'C) கால்டுவெல்', 'D) பரிதிமாற்கலைஞர்']
+        },
+        // ... நீங்கள் விரும்பும் அளவுக்கு வினாக்களை இங்கே சேர்க்கலாம்
+        { id: 6, question: 'கேள்வி 6', options: ['A) 6a', 'B) 6b', 'C) 6c', 'D) 6d'] },
+        { id: 7, question: 'கேள்வி 7', options: ['A) 7a', 'B) 7b', 'C) 7c', 'D) 7d'] },
+        { id: 8, question: 'கேள்வி 8', options: ['A) 8a', 'B) 8b', 'C) 8c', 'D) 8d'] },
+        { id: 9, question: 'கேள்வி 9', options: ['A) 9a', 'B) 9b', 'C) 9c', 'D) 9d'] },
+        { id: 10, question: 'கேள்வி 10', options: ['A) 10a', 'B) 10b', 'C) 10c', 'D) 10d'] },
+        { id: 11, question: 'கேள்வி 11', options: ['A) 11a', 'B) 11b', 'C) 11c', 'D) 11d'] },
+        { id: 12, question: 'கேள்வி 12', options: ['A) 12a', 'B) 12b', 'C) 12c', 'D) 12d'] },
+    ];
+
+    const mainContent = document.querySelector('.main-question-content');
+    const paletteContainer = document.querySelector('.question-palette');
+
+    // <<< NEW: Function to render all questions on the right side
+    function renderAllQuestions() {
+        mainContent.innerHTML = ''; // Clear existing content
+        allQuestionsData.forEach(q => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+            questionBlock.id = `question-${q.id}`; // Add ID for scrolling
+
+            const optionsHTML = q.options.map((opt, index) => {
+                const optionLetter = String.fromCharCode(65 + index); // A, B, C, D
+                return `<li>
+                    <input type="radio" id="q${q.id}_opt${optionLetter}" name="question${q.id}" value="${optionLetter}">
+                    <label for="q${q.id}_opt${optionLetter}">${opt}</label>
+                </li>`;
+            }).join('');
+
+            questionBlock.innerHTML = `
+                <div class="question-header">
+                    <h3>வினா எண்: ${q.id}</h3>
+                </div>
+                <div class="question-content">
+                    <p>${q.question}</p>
+                </div>
+                <ul class="options-list">
+                    ${optionsHTML}
+                </ul>
+            `;
+            mainContent.appendChild(questionBlock);
+        });
+    }
+
+    // <<< MODIFIED: Render palette for all questions at once
+    function renderPalette() {
+        paletteContainer.innerHTML = '';
+        allQuestionsData.forEach(q => {
+            const button = document.createElement('a'); // Changed to <a> tag for href
+            button.classList.add('palette-btn');
+            button.textContent = q.id;
+            button.href = `#question-${q.id}`; // Link to the question block ID
+            paletteContainer.appendChild(button);
+        });
+    }
+
+    // Initial render
+    renderAllQuestions();
+    renderPalette();
+});
+</script>
+
+</body>
+</html>
