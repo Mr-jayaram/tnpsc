@@ -1,1055 +1,1062 @@
-<!DOCTYPE html>
-<html lang="ta">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>டிஎன்பிஎஸ்சி தேர்வு வழிகாட்டி </title>
-    <link rel="shortcut icon" href="assets/img/logo/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> 
-    
-    <style>
-        /* ======================== */
-        /* 🎨 THEME COLORS 🎨 */
-        /* ======================== */
-        :root {
-            --primary-color: #f39c12;    /* Main Orange */
-            --primary-dark: #e67e22;     /* Darker Orange for Hover / Top Banner */
-            --primary-light: #fef5e7;    /* Very Light Orange for Backgrounds */
-            
-            --heading-color: #111111;
-            --text-color: #555555;
-            --text-light: #666666;
-            
-            --white-color: #ffffff;
-            --light-gray-bg: #f9f9f9;
-            --border-color: #eeeeee;
-        }
-
-        /* ======================== */
-        /* GLOBAL STYLES */
-        /* ======================== */
-        html { font-size: 100%; scroll-behavior: smooth; }
-        body {
-            font-family: 'Noto Sans', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            margin: 0; padding: 0; background-color: var(--white-color); color: var(--text-color); font-size: 1rem; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; 
-        }
-        a{ text-decoration: none; color: inherit; }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
-        section { padding: 60px 0; overflow: hidden; }
-        .section-title { text-align: center; font-size: 1.7rem; margin: 0 0 10px 0; color: var(--heading-color); }
-        .section-title-container { text-align: center; margin-bottom: 40px; }
-        .title-divider { max-width: 140px; }
-
-        /* PRELOADER */
-        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; visibility: visible; opacity: 1; }
-        .loader-spinner { width: 50px; height: 50px; border: 5px solid var(--primary-light); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        body.loaded .preloader { opacity: 0; visibility: hidden; pointer-events: none; }
-        .logo_img{ width: 60px; height: 60px; }
-
-        /* ======================== */
-        /* 🌟 FIXED HEADER STYLING 🌟 */
-        /* ======================== */
-        header {
-            position: fixed; /* Fix the entire header block */
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-        main {
-             /* Dynamic padding will be added by JS to prevent overlap */
-             background-color: var(--white-color);
-        }
-
-        .nav-info { background-color: var(--primary-dark); color: var(--white-color); padding: 8px 0; text-align: center; }
-        .nav-info h5 { color: var(--white-color); margin: 0; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.5px; }
-        .nav-info h5 i { margin-right: 8px; opacity: 0.8; }
-
-        .navbar {
-            background-color: var(--white-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-        }
-        .navbar .container { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
-        .navbar-logo { margin: 0; font-weight: 800; }
-        .navbar-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
-        .navbar-links a { text-decoration: none; color: var(--heading-color); font-weight: 700; font-size: 1rem; transition: color 0.3s; position: relative; padding-bottom: 5px; }
-        .navbar-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--primary-color); transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out; }
-        .navbar-links a:hover::after, .navbar-links .active::after { transform: scaleX(1); transform-origin: bottom left; }
-        .navbar-links a:hover, .navbar-links .active { color: var(--primary-color) !important; }
+    <!DOCTYPE html>
+    <html lang="ta">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        .navbar-auth { display: flex; align-items: center; gap: 20px; }
-        .navbar-auth i { font-size: 1.4rem; cursor: pointer; color: var(--heading-color); transition: color 0.3s ease; }
-        .navbar-auth i:hover { color: var(--primary-color); }
+        <title>டிஎன்பிஎஸ்சி தேர்வு வழிகாட்டி </title>
+        <link rel="shortcut icon" href="assets/img/logo/logo.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         
-        .mobile-menu-icon { display: none; }
-        .mobile-menu-header { display: none; }
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
-        /* ======================== */
-        /* 🌟 HERO SECTION WITH SCROLLER 🌟 */
-        /* ======================== */
-        .hero-section {
-            padding: 80px 0 120px 0; /* Increased bottom padding for scroller */
-            position: relative;
-            color: var(--white-color);
-            background-image: linear-gradient(rgba(17, 17, 17, 0.6), rgba(17, 17, 17, 0.6)), url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-        .hero-container { display: flex; align-items: center; gap: 40px; position: relative; z-index: 1; }
-        .hero-text { flex: 1; }
-        .hero-subtitle { font-weight: 500; color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; }
-        .hero-text h1 { font-size: 2.8rem; font-weight: 700; color: var(--white-color); margin: 10px 0 20px 0; line-height: 1.3; }
-        .hero-text h1 span { color: var(--primary-color); }
-        .hero-description { font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 30px; max-width: 500px; }
-        .hero-text .btn-primary { padding: 15px 35px; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; }
-        .hero-text .btn-primary .fas { transition: transform 0.3s ease; }
-        .hero-text .btn-primary:hover .fas { transform: translateX(5px); }
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> 
+        
+        <style>
+            /* ======================== */
+            /* 🎨 THEME COLORS 🎨 */
+            /* ======================== */
+            :root {
+                --primary-color: #f39c12;    /* Main Orange */
+                --primary-dark: #e67e22;     /* Darker Orange for Hover / Top Banner */
+                --primary-light: #fef5e7;    /* Very Light Orange for Backgrounds */
+                
+                --heading-color: #111111;
+                --text-color: #555555;
+                --text-light: #666666;
+                
+                --white-color: #ffffff;
+                --light-gray-bg: #f9f9f9;
+                --border-color: #eeeeee;
+            }
 
-        .hero-image-area { flex: 1; display: flex; justify-content: center; align-items: center; }
-        .hero-image-placeholder img { max-width: 100%; height: auto; }
+            /* ======================== */
+            /* GLOBAL STYLES */
+            /* ======================== */
+            html { font-size: 100%; scroll-behavior: smooth; }
+            body {
+                font-family: 'Noto Sans', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+                margin: 0; padding: 0; background-color: var(--white-color); color: var(--text-color); font-size: 1rem; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; 
+            }
+            a{ text-decoration: none; color: inherit; }
+            .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+            section { padding: 60px 0; overflow: hidden; }
+            .section-title { text-align: center; font-size: 1.7rem; margin: 0 0 10px 0; color: var(--heading-color); }
+            .section-title-container { text-align: center; margin-bottom: 40px; }
+            .title-divider { max-width: 140px; }
 
-       @keyframes scroll-horizontal {
-        from { transform: translateX(0); }
-        to { transform: translateX(-50%); } /* This is the key */
-        }
+            /* PRELOADER */
+            .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; visibility: visible; opacity: 1; }
+            .loader-spinner { width: 50px; height: 50px; border: 5px solid var(--primary-light); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
+            @keyframes spin { to { transform: rotate(360deg); } }
+            body.loaded .preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+            .logo_img{ width: 60px; height: 60px; }
 
-        .stats-track {
-        animation: scroll-horizontal 30s linear infinite;
-        }
-        .hero-stats-scroller {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 0;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-        .hero-stats-scroller:hover .stats-track {
-            animation-play-state: paused;
-        }
-        .stats-track {
-            display: flex;
-            width: max-content; /* Critical for layout */
+            /* ======================== */
+            /* 🌟 FIXED HEADER STYLING 🌟 */
+            /* ======================== */
+            header {
+                position: fixed; /* Fix the entire header block */
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+            }
+            main {
+                /* Dynamic padding will be added by JS to prevent overlap */
+                background-color: var(--white-color);
+            }
+
+            .nav-info { background-color: var(--primary-dark); color: var(--white-color); padding: 8px 0; text-align: center; }
+            .nav-info h5 { color: var(--white-color); margin: 0; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.5px; }
+            .nav-info h5 i { margin-right: 8px; opacity: 0.8; }
+
+            .navbar {
+                background-color: var(--white-color);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            }
+            .navbar .container { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+            .navbar-logo { margin: 0; font-weight: 800; }
+            .navbar-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+            .navbar-links a { text-decoration: none; color: var(--heading-color); font-weight: 700; font-size: 1rem; transition: color 0.3s; position: relative; padding-bottom: 5px; }
+            .navbar-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--primary-color); transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out; }
+            .navbar-links a:hover::after, .navbar-links .active::after { transform: scaleX(1); transform-origin: bottom left; }
+            .navbar-links a:hover, .navbar-links .active { color: var(--primary-color) !important; }
+            
+            .navbar-auth { display: flex; align-items: center; gap: 20px; }
+            .navbar-auth i { font-size: 1.4rem; cursor: pointer; color: var(--heading-color); transition: color 0.3s ease; }
+            .navbar-auth i:hover { color: var(--primary-color); }
+            
+            .mobile-menu-icon { display: none; }
+            .mobile-menu-header { display: none; }
+
+            /* ======================== */
+            /* 🌟 HERO SECTION WITH SCROLLER 🌟 */
+            /* ======================== */
+            .hero-section {
+                padding: 80px 0 120px 0; /* Increased bottom padding for scroller */
+                position: relative;
+                color: var(--white-color);
+                background-image: linear-gradient(rgba(17, 17, 17, 0.6), rgba(17, 17, 17, 0.6)), url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop');
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+            .hero-container { display: flex; align-items: center; gap: 40px; position: relative; z-index: 1; }
+            .hero-text { flex: 1; }
+            .hero-subtitle { font-weight: 500; color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; }
+            .hero-text h1 { font-size: 2.8rem; font-weight: 700; color: var(--white-color); margin: 10px 0 20px 0; line-height: 1.3; }
+            .hero-text h1 span { color: var(--primary-color); }
+            .hero-description { font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 30px; max-width: 500px; }
+            .hero-text .btn-primary { padding: 15px 35px; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px; }
+            .hero-text .btn-primary .fas { transition: transform 0.3s ease; }
+            .hero-text .btn-primary:hover .fas { transform: translateX(5px); }
+
+            .hero-image-area { flex: 1; display: flex; justify-content: center; align-items: center; }
+            .hero-image-placeholder img { max-width: 100%; height: auto; }
+
+        @keyframes scroll-horizontal {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); } /* This is the key */
+            }
+
+            .stats-track {
             animation: scroll-horizontal 30s linear infinite;
-        }
-        .stat-card {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--white-color);
-            margin: 0 40px; /* Spacing between cards */
-            flex-shrink: 0;
-        }
-        .stat-card i {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-        .stat-card strong {
-            font-size: 1.5rem;
-            display: block;
-        }
-        .stat-card span {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
+            }
+            .hero-stats-scroller {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px 0;
+                background: rgba(0, 0, 0, 0.2);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                overflow: hidden;
+            }
+            .hero-stats-scroller:hover .stats-track {
+                animation-play-state: paused;
+            }
+            .stats-track {
+                display: flex;
+                width: max-content; /* Critical for layout */
+                animation: scroll-horizontal 30s linear infinite;
+            }
+            .stat-card {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                color: var(--white-color);
+                margin: 0 40px; /* Spacing between cards */
+                flex-shrink: 0;
+            }
+            .stat-card i {
+                font-size: 2rem;
+                color: var(--primary-color);
+            }
+            .stat-card strong {
+                font-size: 1.5rem;
+                display: block;
+            }
+            .stat-card span {
+                font-size: 0.9rem;
+                opacity: 0.8;
+            }
 
-        /* ======================== */
-        /* OTHER SECTIONS (ORIGINAL STYLES) */
-        /* ======================== */
+            /* ======================== */
+            /* OTHER SECTIONS (ORIGINAL STYLES) */
+            /* ======================== */
 
-        .btn-primary { background-color: var(--primary-color); color: var(--white-color); padding: 15px 30px; text-decoration: none; font-weight: 700; border-radius: 8px; display: inline-block; transition: all 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
-        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3); }
-        .btn-secondary { background-color: var(--white-color); color: var(--primary-color); border: 2px solid var(--primary-color); padding: 12px 25px; text-decoration: none; font-weight: 700; border-radius: 8px; display: inline-block; transition: all 0.3s; }
-        .btn-secondary:hover { background-color: var(--primary-color); color: var(--white-color); transform: translateY(-2px); }
-        .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 20px; text-decoration: none; font-weight: 500; border-radius: 8px; transition: all 0.3s; }
-        .btn-outline:hover { background-color: var(--primary-color); color: var(--white-color); transform: translateY(-2px); }
-        .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1001; display: none; opacity: 0; transition: opacity 0.3s ease; }
-        body.mobile-menu-active { overflow: hidden; }
-        body.mobile-menu-active .mobile-menu-overlay { display: block; opacity: 1; }
-        body.mobile-menu-active .navbar-links { transform: translateX(0); }
-        .categories-section { background-color: var(--white-color); }
-        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .category-card { background-color: var(--primary-light); border: 1px solid var(--primary-light); border-radius: 12px; padding: 25px; display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s; }
-        .category-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0, 0.05); }
-        .category-card i { font-size: 1.5rem; padding: 10px; border-radius: 8px; color: white; width: 30px; text-align: center; }
-        .icon-group1 { background-color: #e74c3c; } .icon-group2 { background-color: #3498db; } .icon-group4 { background-color: #9b59b6; } .icon-tamil { background-color: #f39c12; } .icon-maths { background-color: #8e44ad; } .icon-history { background-color: #1abc9c; } .icon-science { background-color: #e67e22; } .icon-current { background-color: #2980b9; }
-        
-        /* ================================== */
-        /* 🚀 IMPROVED NOTIFICATIONS SECTION 🚀 */
-        /* ================================== */
-        
-        .notifications-section { background-color: var(--light-gray-bg); }
-        
-        .notification-slider {
-            padding-bottom: 50px; /* Space for pagination */
-            position: relative;
-        }
+            .btn-primary { background-color: var(--primary-color); color: var(--white-color); padding: 15px 30px; text-decoration: none; font-weight: 700; border-radius: 8px; display: inline-block; transition: all 0.3s; border: none; cursor: pointer; font-size: 1.1rem; }
+            .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3); }
+            .btn-secondary { background-color: var(--white-color); color: var(--primary-color); border: 2px solid var(--primary-color); padding: 12px 25px; text-decoration: none; font-weight: 700; border-radius: 8px; display: inline-block; transition: all 0.3s; }
+            .btn-secondary:hover { background-color: var(--primary-color); color: var(--white-color); transform: translateY(-2px); }
+            .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 20px; text-decoration: none; font-weight: 500; border-radius: 8px; transition: all 0.3s; }
+            .btn-outline:hover { background-color: var(--primary-color); color: var(--white-color); transform: translateY(-2px); }
+            .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1001; display: none; opacity: 0; transition: opacity 0.3s ease; }
+            body.mobile-menu-active { overflow: hidden; }
+            body.mobile-menu-active .mobile-menu-overlay { display: block; opacity: 1; }
+            body.mobile-menu-active .navbar-links { transform: translateX(0); }
+            .categories-section { background-color: var(--white-color); }
+            .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            .category-card { background-color: var(--primary-light); border: 1px solid var(--primary-light); border-radius: 12px; padding: 25px; display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 1.1rem; transition: transform 0.3s, box-shadow 0.3s; }
+            .category-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0, 0.05); }
+            .category-card i { font-size: 1.5rem; padding: 10px; border-radius: 8px; color: white; width: 30px; text-align: center; }
+            .icon-group1 { background-color: #e74c3c; } .icon-group2 { background-color: #3498db; } .icon-group4 { background-color: #9b59b6; } .icon-tamil { background-color: #f39c12; } .icon-maths { background-color: #8e44ad; } .icon-history { background-color: #1abc9c; } .icon-science { background-color: #e67e22; } .icon-current { background-color: #2980b9; }
+            
+            /* ================================== */
+            /* 🚀 IMPROVED NOTIFICATIONS SECTION 🚀 */
+            /* ================================== */
+            
+            .notifications-section { background-color: var(--light-gray-bg); }
+            
+            .notification-slider {
+                padding-bottom: 50px; /* Space for pagination */
+                position: relative;
+            }
 
-        .notification-item {
-            display: flex;
-            flex-direction: column;
-            background-color: var(--white-color);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0, 0.02);
-            height: 100%; /* Ensure all slides are same height */
-            overflow: hidden;
-        }
-        .notification-item:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 8px 25px rgba(0,0,0, 0.07); 
-            z-index: 2;
-        }
+            .notification-item {
+                display: flex;
+                flex-direction: column;
+                background-color: var(--white-color);
+                border-radius: 12px;
+                border: 1px solid var(--border-color);
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0,0,0, 0.02);
+                height: 100%; /* Ensure all slides are same height */
+                overflow: hidden;
+            }
+            .notification-item:hover { 
+                transform: translateY(-5px); 
+                box-shadow: 0 8px 25px rgba(0,0,0, 0.07); 
+                z-index: 2;
+            }
 
-        .notification-item-header { /* New wrapper for top part */
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px 25px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .notification-exam .exam-icon { 
-            font-size: 1.5rem; 
-            color: white; 
-            width: 50px; 
-            height: 50px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border-radius: 10px; 
-            flex-shrink: 0; 
-        }
-        .notification-exam h4 { 
-            margin: 0 0 5px 0; 
-            font-size: 1.2rem; 
-            color: var(--heading-color); 
-        }
-        .notification-exam span { 
-            font-size: 0.9rem; 
-            color: var(--text-light); 
-        }
+            .notification-item-header { /* New wrapper for top part */
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 20px 25px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .notification-exam .exam-icon { 
+                font-size: 1.5rem; 
+                color: white; 
+                width: 50px; 
+                height: 50px; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                border-radius: 10px; 
+                flex-shrink: 0; 
+            }
+            .notification-exam h4 { 
+                margin: 0 0 5px 0; 
+                font-size: 1.2rem; 
+                color: var(--heading-color); 
+            }
+            .notification-exam span { 
+                font-size: 0.9rem; 
+                color: var(--text-light); 
+            }
 
-        .notification-item-body { /* New wrapper for middle part */
-            padding: 20px 25px;
-            flex-grow: 1; /* Pushes footer to bottom */
-        }
-        
-        .notification-dates p { 
-            margin: 0 0 10px 0; /* Stack dates vertically */
-            font-size: 0.95rem; 
-        }
-        .notification-dates p:last-child { margin-bottom: 0; }
-        .notification-dates p strong { color: var(--heading-color); }
+            .notification-item-body { /* New wrapper for middle part */
+                padding: 20px 25px;
+                flex-grow: 1; /* Pushes footer to bottom */
+            }
+            
+            .notification-dates p { 
+                margin: 0 0 10px 0; /* Stack dates vertically */
+                font-size: 0.95rem; 
+            }
+            .notification-dates p:last-child { margin-bottom: 0; }
+            .notification-dates p strong { color: var(--heading-color); }
 
-        .notification-item-footer { /* New wrapper for button */
-            padding: 0 25px 25px 25px;
-        }
-        
-        .notification-link .btn-secondary {
-            width: 100%; /* Make button full width */
-            text-align: center;
-            box-sizing: border-box; /* Include padding in width */
-        }
+            .notification-item-footer { /* New wrapper for button */
+                padding: 0 25px 25px 25px;
+            }
+            
+            .notification-link .btn-secondary {
+                width: 100%; /* Make button full width */
+                text-align: center;
+                box-sizing: border-box; /* Include padding in width */
+            }
 
-        /* Swiper Controls Styling */
-        .notification-slider .swiper-pagination-bullet-active {
-            background: var(--primary-color);
-        }
-        
-        /* Removed .swiper-button-next, .swiper-button-prev styles */
-        
-        /* ================================== */
-        /* END OF IMPROVED SECTION */
-        /* ================================== */
+            /* Swiper Controls Styling */
+            .notification-slider .swiper-pagination-bullet-active {
+                background: var(--primary-color);
+            }
+            
+            /* Removed .swiper-button-next, .swiper-button-prev styles */
+            
+            /* ================================== */
+            /* END OF IMPROVED SECTION */
+            /* ================================== */
 
 
-        .courses-section { background-color: var(--primary-light); }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .section-header .section-title { margin: 0 0 10px 0; text-align: left; }
-        .header-title-wrapper { flex-grow: 1; }
-        .courses-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
-        .course-card { border: 1px solid var(--border-color); border-radius: 12px; background-color: var(--white-color); box-shadow: 0 4px 10px rgba(0,0,0, 0.02); transition: transform 0.3s, box-shadow 0.3s; overflow: hidden; display: flex; flex-direction: column; }
-        .course-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0, 0.07); }
-        .course-image { position: relative; overflow: hidden; }
-        .course-image img { width: 100%; height: auto; display: block; transition: transform 0.4s ease; }
-        .course-card:hover .course-image img { transform: scale(1.05); }
-        .course-image .course-tag { position: absolute; top: 15px; left: 15px; background-color: var(--primary-dark); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; font-weight: 600; }
-        .course-content { padding:15px 20px; flex-grow: 1; }
-        .course-content h4 {  margin: 0 0 15px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 3.2em; }
-        .course-meta { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-light); }
-        .course-price-free { font-weight: 700; color: #27ae60; font-size: 16px; }
-        .course-price-sale { font-weight: 700; color: #e74c3c; font-size: 16px; }
-        .course-price-original { text-decoration: line-through; color: #999; margin-left: 5px; }
-        .course-footer { padding: 15px 20px; border-top: 1px solid var(--border-color); }
-        .course-footer a { text-decoration: none; color: var(--heading-color); font-weight: 500; transition: color 0.3s; font-size: 13px; }
-        .course-footer a:hover { color: var(--primary-color); }
-        .course-footer a i { margin-left: 5px; }
-        .testimonials-section { background-color: var(--light-gray-bg); }
-        .testimonial-card { background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); height: 100%; box-sizing: border-box; }
-        .testimonial-stars { color: var(--primary-color); margin-bottom: 15px; font-size: 1.1rem; }
-        .testimonial-text { font-size: 1rem; font-style: italic; color: var(--text-color); line-height: 1.7; margin-bottom: 25px; }
-        .testimonial-author { display: flex; align-items: center; gap: 15px; }
-        .testimonial-author img { width: 60px; height: 60px; border-radius: 50%; }
-        .author-info strong { display: block; font-size: 1rem; color: var(--heading-color); }
-        .author-info span { font-size: 0.9rem; color: #777; }
-        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        .scroller-container { max-width: 1400px; margin: 0 auto; overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); padding: 20px 0; }
-        .scroller-track { display: flex; gap: 1.5rem; width: max-content; animation: scroll 30s linear infinite; }
-        .scroller-container:hover .scroller-track { animation-play-state: paused; }
-        .testimonial-card-item { width: 380px; flex-shrink: 0; }
-        .faq-section { background-color: var(--primary-light); }
-        .faq-container { max-width: 800px; margin: 0 auto; }
-        .faq-item { background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: border-color 0.3s ease, box-shadow 0.3s ease; overflow: hidden; }
-        .faq-item:last-child { margin-bottom: 0; }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; cursor: pointer; transition: background-color 0.3s ease; }
-        .faq-question:hover h4 { color: var(--primary-dark); }
-        .faq-question h4 { margin: 0; font-size: 1.15rem; font-weight: 600; color: var(--heading-color); transition: color 0.3s ease; }
-        .faq-question i { font-size: 1.1rem; color: var(--primary-color); background-color: var(--primary-light); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 20px; transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 25px; color: var(--text-light); }
-        .faq-answer p { margin: 0; line-height: 1.7; }
-        .faq-item.active { border-color: var(--primary-color); box-shadow: 0 6px 20px rgba(243, 156, 18, 0.1); }
-        .faq-item.active .faq-question h4 { color: var(--primary-dark); }
-        .faq-item.active .faq-question i { transform: rotate(135deg); background-color: var(--primary-color); color: var(--white-color); }
-        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 25px; }
-        .contact-section { background-color: var(--white-color); }
-        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background-color: var(--light-gray-bg); padding: 50px; border-radius: 12px; }
-        .contact-info h3 { font-size: 1.75rem; margin-top: 0; margin-bottom: 15px; color: var(--heading-color); }
-        .contact-info p { font-size: 1rem; color: var(--text-light); line-height: 1.7; margin-bottom: 30px; }
-        .contact-info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; font-size: 1rem; font-weight: 500; }
-        .contact-info-item i { color: var(--primary-color); font-size: 1.3rem; width: 25px; text-align: center; }
-        .map-placeholder { width: 100%; height: 200px; background-color: #e0e0e0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 30px; }
-        .contact-form .form-group { margin-bottom: 20px; }
-        .contact-form label { display: block; font-weight: 500; color: #333; margin-bottom: 8px; font-size: 1rem; }
-        .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: inherit; box-sizing: border-box; }
-        .contact-form input[type="text"]:focus, .contact-form input[type="email"]:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 5px rgba(243, 156, 18, 0.3); }
-        .contact-form textarea { min-height: 120px; resize: vertical; }
-        .contact-form .btn-primary { width: 100%; }
-        .footer-section { background-color: #1a1a1a; color: #aaa; padding-top: 60px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-bottom: 40px; }
-        .footer-col h4, .footer-logo { color: var(--white-color); font-size: 1.25rem; margin-top: 0; margin-bottom: 20px; }
-        .footer-col p { line-height: 1.7; font-size: 1rem; }
-        .footer-col ul { list-style: none; padding: 0; margin: 0; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul a { text-decoration: none; color: #aaa; transition: color 0.3s; font-size: 1rem; }
-        .footer-col ul a:hover { color: var(--primary-color); }
-        .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
-        .footer-socials a { color: var(--white-color); background-color: #333; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; text-decoration: none; border-radius: 50%; transition: background-color 0.3s; }
-        .footer-socials a:hover { background-color: var(--primary-color); }
-        .footer-subscribe-form { display: flex; margin-top: 20px; }
-        .footer-subscribe-form input { flex-grow: 1; border: none; padding: 12px; border-radius: 5px 0 0 5px; background-color: #333; color: var(--white-color); font-size: 1rem; }
-        .footer-subscribe-form button { border: none; background-color: var(--primary-color); color: var(--white-color); padding: 0 15px; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 1.1rem; }
-        .footer-bottom { border-top: 1px solid #333; padding: 20px 0; text-align: center; font-size: 0.9rem; }
-        .required-label{ color: red; font-weight: bolder; padding: 0 3px; }
+            .courses-section { background-color: var(--primary-light); }
+            .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+            .section-header .section-title { margin: 0 0 10px 0; text-align: left; }
+            .header-title-wrapper { flex-grow: 1; }
+            .courses-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+            .course-card { border: 1px solid var(--border-color); border-radius: 12px; background-color: var(--white-color); box-shadow: 0 4px 10px rgba(0,0,0, 0.02); transition: transform 0.3s, box-shadow 0.3s; overflow: hidden; display: flex; flex-direction: column; }
+            .course-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0, 0.07); }
+            .course-image { position: relative; overflow: hidden; }
+            .course-image img { width: 100%; height: auto; display: block; transition: transform 0.4s ease; }
+            .course-card:hover .course-image img { transform: scale(1.05); }
+            .course-image .course-tag { position: absolute; top: 15px; left: 15px; background-color: var(--primary-dark); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; font-weight: 600; }
+            .course-content { padding:15px 20px; flex-grow: 1; }
+            .course-content h4 {  margin: 0 0 15px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 3.2em; }
+            .course-meta { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--text-light); }
+            .course-price-free { font-weight: 700; color: #27ae60; font-size: 16px; }
+            .course-price-sale { font-weight: 700; color: #e74c3c; font-size: 16px; }
+            .course-price-original { text-decoration: line-through; color: #999; margin-left: 5px; }
+            .course-footer { padding: 15px 20px; border-top: 1px solid var(--border-color); }
+            .course-footer a { text-decoration: none; color: var(--heading-color); font-weight: 500; transition: color 0.3s; font-size: 13px; }
+            .course-footer a:hover { color: var(--primary-color); }
+            .course-footer a i { margin-left: 5px; }
+            .testimonials-section { background-color: var(--light-gray-bg); }
+            .testimonial-card { background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); height: 100%; box-sizing: border-box; }
+            .testimonial-stars { color: var(--primary-color); margin-bottom: 15px; font-size: 1.1rem; }
+            .testimonial-text { font-size: 1rem; font-style: italic; color: var(--text-color); line-height: 1.7; margin-bottom: 25px; }
+            .testimonial-author { display: flex; align-items: center; gap: 15px; }
+            .testimonial-author img { width: 60px; height: 60px; border-radius: 50%; }
+            .author-info strong { display: block; font-size: 1rem; color: var(--heading-color); }
+            .author-info span { font-size: 0.9rem; color: #777; }
+            @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+            .scroller-container { max-width: 1400px; margin: 0 auto; overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); padding: 20px 0; }
+            .scroller-track { display: flex; gap: 1.5rem; width: max-content; animation: scroll 30s linear infinite; }
+            .scroller-container:hover .scroller-track { animation-play-state: paused; }
+            .testimonial-card-item { width: 380px; flex-shrink: 0; }
+            .faq-section { background-color: var(--primary-light); }
+            .faq-container { max-width: 800px; margin: 0 auto; }
+            .faq-item { background-color: var(--white-color); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: border-color 0.3s ease, box-shadow 0.3s ease; overflow: hidden; }
+            .faq-item:last-child { margin-bottom: 0; }
+            .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; cursor: pointer; transition: background-color 0.3s ease; }
+            .faq-question:hover h4 { color: var(--primary-dark); }
+            .faq-question h4 { margin: 0; font-size: 1.15rem; font-weight: 600; color: var(--heading-color); transition: color 0.3s ease; }
+            .faq-question i { font-size: 1.1rem; color: var(--primary-color); background-color: var(--primary-light); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 20px; transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; }
+            .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; padding: 0 25px; color: var(--text-light); }
+            .faq-answer p { margin: 0; line-height: 1.7; }
+            .faq-item.active { border-color: var(--primary-color); box-shadow: 0 6px 20px rgba(243, 156, 18, 0.1); }
+            .faq-item.active .faq-question h4 { color: var(--primary-dark); }
+            .faq-item.active .faq-question i { transform: rotate(135deg); background-color: var(--primary-color); color: var(--white-color); }
+            .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 25px; }
+            .contact-section { background-color: var(--white-color); }
+            .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background-color: var(--light-gray-bg); padding: 50px; border-radius: 12px; }
+            .contact-info h3 { font-size: 1.75rem; margin-top: 0; margin-bottom: 15px; color: var(--heading-color); }
+            .contact-info p { font-size: 1rem; color: var(--text-light); line-height: 1.7; margin-bottom: 30px; }
+            .contact-info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; font-size: 1rem; font-weight: 500; }
+            .contact-info-item i { color: var(--primary-color); font-size: 1.3rem; width: 25px; text-align: center; }
+            .map-placeholder { width: 100%; height: 200px; background-color: #e0e0e0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 30px; }
+            .contact-form .form-group { margin-bottom: 20px; }
+            .contact-form label { display: block; font-weight: 500; color: #333; margin-bottom: 8px; font-size: 1rem; }
+            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: inherit; box-sizing: border-box; }
+            .contact-form input[type="text"]:focus, .contact-form input[type="email"]:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 5px rgba(243, 156, 18, 0.3); }
+            .contact-form textarea { min-height: 120px; resize: vertical; }
+            .contact-form .btn-primary { width: 100%; }
+            .footer-section { background-color: #1a1a1a; color: #aaa; padding-top: 60px; }
+            .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-bottom: 40px; }
+            .footer-col h4, .footer-logo { color: var(--white-color); font-size: 1.25rem; margin-top: 0; margin-bottom: 20px; }
+            .footer-col p { line-height: 1.7; font-size: 1rem; }
+            .footer-col ul { list-style: none; padding: 0; margin: 0; }
+            .footer-col ul li { margin-bottom: 12px; }
+            .footer-col ul a { text-decoration: none; color: #aaa; transition: color 0.3s; font-size: 1rem; }
+            .footer-col ul a:hover { color: var(--primary-color); }
+            .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+            .footer-socials a { color: var(--white-color); background-color: #333; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; text-decoration: none; border-radius: 50%; transition: background-color 0.3s; }
+            .footer-socials a:hover { background-color: var(--primary-color); }
+            .footer-subscribe-form { display: flex; margin-top: 20px; }
+            .footer-subscribe-form input { flex-grow: 1; border: none; padding: 12px; border-radius: 5px 0 0 5px; background-color: #333; color: var(--white-color); font-size: 1rem; }
+            .footer-subscribe-form button { border: none; background-color: var(--primary-color); color: var(--white-color); padding: 0 15px; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 1.1rem; }
+            .footer-bottom { border-top: 1px solid #333; padding: 20px 0; text-align: center; font-size: 0.9rem; }
+            .required-label{ color: red; font-weight: bolder; padding: 0 3px; }
 
-        /* RESPONSIVE STYLES */
-        @media (max-width: 1024px) {
-            .navbar-links { gap: 20px; font-size: 1rem; }
-            .hero-text h1 { font-size: 2.75rem; } 
-            .categories-grid, .courses-grid { grid-template-columns: repeat(2, 1fr); }
-            .contact-container { grid-template-columns: 1fr; padding: 40px; }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-image-area img { max-width: 400px; }
-        }
+            /* RESPONSIVE STYLES */
+            @media (max-width: 1024px) {
+                .navbar-links { gap: 20px; font-size: 1rem; }
+                .hero-text h1 { font-size: 2.75rem; } 
+                .categories-grid, .courses-grid { grid-template-columns: repeat(2, 1fr); }
+                .contact-container { grid-template-columns: 1fr; padding: 40px; }
+                .footer-grid { grid-template-columns: repeat(2, 1fr); }
+                .hero-image-area img { max-width: 400px; }
+            }
 
-        @media (max-width: 768px) {
-            section { padding: 40px 0; }
-            .section-title { font-size: 2rem; } 
-            .mobile-menu-icon { display: block; }
-            .navbar-links { display: flex; flex-direction: column; position: fixed; left: 0; top: 0; height: 100vh; width: 280px; max-width: 80%; background-color: var(--white-color); z-index: 1002; padding: 0; gap: 0; transform: translateX(-100%); transition: transform 0.3s ease-in-out; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
-            .navbar-links li { width: 100%; }
-            .navbar-links a { display: block; padding: 15px 20px; font-size: 1.1rem; color: var(--heading-color); }
-            .navbar-links a::after { display: none; }
-            .navbar-links a:hover { background-color: var(--primary-light); color: var(--primary-dark); }
-            .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border-color); }
-            .mobile-menu-logo { font-size: 1.3rem; color: var(--primary-color); margin: 0; font-weight: 700; }
-            .mobile-menu-close { font-size: 1.5rem; color: #555; cursor: pointer; }
-            .hero-section { padding-top: 60px; padding-bottom: 100px; }
-            .hero-container, .section-header { flex-direction: column; text-align: center; margin-bottom: 20px; }
-            .hero-text h1 { font-size: 2.5rem; } 
-            .hero-description { margin-left: auto; margin-right: auto; }
-            .hero-image-area { display: none; } /* Hide image on mobile to save space */
-            .courses-grid, .footer-grid { grid-template-columns: 1fr; }
-            .section-header { gap: 20px; }
-            .section-header .section-title { text-align: center; }
-            .contact-container { padding: 20px; }
-            .footer-col { text-align: center; }
-            .footer-socials { justify-content: center; }
-            .category-card { flex-direction: column; }
-            .testimonial-card-item { width: 320px; }
-            .scroller-track { animation-duration: 25s; }
-            .stats-track { animation-duration: 20s; } /* Speed up scroller on mobile */
-            .stat-card { margin: 0 20px; }
-            .mobile-view-none{display: none;}
+            @media (max-width: 768px) {
+                section { padding: 40px 0; }
+                .section-title { font-size: 2rem; } 
+                .mobile-menu-icon { display: block; }
+                .navbar-links { display: flex; flex-direction: column; position: fixed; left: 0; top: 0; height: 100vh; width: 280px; max-width: 80%; background-color: var(--white-color); z-index: 1002; padding: 0; gap: 0; transform: translateX(-100%); transition: transform 0.3s ease-in-out; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
+                .navbar-links li { width: 100%; }
+                .navbar-links a { display: block; padding: 15px 20px; font-size: 1.1rem; color: var(--heading-color); }
+                .navbar-links a::after { display: none; }
+                .navbar-links a:hover { background-color: var(--primary-light); color: var(--primary-dark); }
+                .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border-color); }
+                .mobile-menu-logo { font-size: 1.3rem; color: var(--primary-color); margin: auto; font-weight: 700; }
+                .mobile-menu-close { font-size: 1.5rem; color: #555; cursor: pointer; }
+                .hero-section { padding-top: 60px; padding-bottom: 100px; }
+                .hero-container, .section-header { flex-direction: column; text-align: center; margin-bottom: 20px; }
+                .hero-text h1 { font-size: 2.5rem; } 
+                .hero-description { margin-left: auto; margin-right: auto; }
+                .hero-image-area { display: none; } /* Hide image on mobile to save space */
+                .courses-grid, .footer-grid { grid-template-columns: 1fr; }
+                .section-header { gap: 20px; }
+                .section-header .section-title { text-align: center; }
+                .contact-container { padding: 20px; }
+                .footer-col { text-align: center; }
+                .footer-socials { justify-content: center; }
+                .category-card { flex-direction: column; }
+                .testimonial-card-item { width: 320px; }
+                .scroller-track { animation-duration: 25s; }
+                .stats-track { animation-duration: 20s; } /* Speed up scroller on mobile */
+                .stat-card { margin: 0 20px; }
+                .mobile-view-none{display: none;}
+                .hero-text .btn-primary {
+                padding: 15px 20px;
+                font-size: 0.8rem;
+                            }
 
-            /* Removed media query for .swiper-button-next/prev */
-        }
+                /* Removed media query for .swiper-button-next/prev */
+            }
 
-        @media (max-width: 480px) {
-            .container { width: 92%; }
-            .hero-text h1 { font-size: 2rem; line-height: 1.3; }
-            .hero-description { font-size: 1rem; }
-            .section-title { font-size: 1.8rem; }
-            .btn-primary { padding: 12px 24px; font-size: 1rem; }
-            .notification-item-header { padding: 15px; }
-            .notification-item-body { padding: 15px; }
-            .notification-item-footer { padding: 0 15px 15px 15px; }
-            .faq-question h4 { font-size: 1rem; }
-        }
-        
-    </style>
-</head>
-<body>
-    <div class="preloader">
-        <div class="loader-spinner"></div>
-    </div>
-    
-    <header>
-        <div class="nav-info">
-            <h5><i class="fas fa-bullhorn"></i>டி.என்.பி.எஸ்.சி படிப்பு மையம்</h5>
+            @media (max-width: 480px) {
+                .container { width: 92%; }
+                .hero-text h1 { font-size: 1.5rem; line-height: 1.3; }
+                .hero-description { font-size: 1rem; }
+                .section-title { font-size: 1.8rem; }
+                .btn-primary { padding: 12px 24px; font-size: 1rem; }
+                .notification-item-header { padding: 15px; }
+                .notification-item-body { padding: 15px; }
+                .notification-item-footer { padding: 0 15px 15px 15px; }
+                .faq-question h4 { font-size: 1rem; }
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="preloader">
+            <div class="loader-spinner"></div>
         </div>
-        <nav class="navbar">
-            <div class="container">
-                <a href="index.html" class="navbar-logo">
-                    <img src="assets/img/logo/logo.png" class="logo_img" alt="Logo">
-                </a>
-                <ul class="navbar-links">
-                    <div class="mobile-menu-header">
-                        <h3 class="mobile-menu-logo">வழிகாட்டி</h3>
-                        <i class="fas fa-times mobile-menu-close"></i>
-                    </div>
-                    <li><a href="#" class="active">முகப்பு</a></li>
-                    <li><a href="exam.html">தேர்வுகள்</a></li>
-                    <li><a href="books.html">கையேடு</a></li>
-                    <li><a href="exam-info.html">அறிக்கைகள்</a></li>
-                    <li><a href="plan.html">அட்டவணை</a></li>
-                </ul>
-                <div class="navbar-auth">
-                    <i class="fas fa-user-circle profile-icon mobile-view-none"></i>
-                    <i class="fas fa-bars mobile-menu-icon"></i>
-                </div>
+        
+        <header>
+            <div class="nav-info">
+                <h5><i class="fas fa-bullhorn"></i>டி.என்.பி.எஸ்.சி படிப்பு மையம்</h5>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero-section">
-            <div class="container hero-container">
-                <div class="hero-text" data-aos="fade-right" data-aos-duration="800">
-                    <p class="hero-subtitle" data-aos="fade-right" data-aos-delay="200">10,000+ தரமான வினாக்களில் பயிற்சி</p>
-                    <h1 data-aos="fade-right" data-aos-delay="300"><span>வெற்றி</span> நிச்சயம்! TNPSC தேர்வுகளுக்கு தயாராகுங்கள்</h1>
-                    <p class="hero-description" data-aos="fade-right" data-aos-delay="400">உங்கள் அரசுப் பணி கனவை நனவாக்க, இன்றே பயிற்சியைத் தொடங்குங்கள்.</p>
-                    <a href="#" class="btn-primary" data-aos="fade-up" data-aos-delay="500">
-                        தொடங்குங்கள் <i class="fas fa-arrow-right"></i>
+            <nav class="navbar">
+                <div class="container">
+                    <a href="index.html" class="navbar-logo">
+                        <img src="assets/img/logo/logo.png" class="logo_img" alt="Logo">
                     </a>
-                </div>
-                <div class="hero-image-area" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
-                    <div class="hero-image-placeholder">
-                        <img src="assets/img/banner/girl.png" alt="TNPSC தேர்வு புத்தகம்">
-                    </div>
-                </div>
-            </div>
+                    <ul class="navbar-links">
+                        <div class="mobile-menu-header">
+                            <h3 class="mobile-menu-logo">
+                        <img src="assets/img/logo/logo.png" class="logo_img" alt="Logo">
 
-            <div class="hero-stats-scroller">
-                <div class="stats-track">
-                    <div class="stat-card">
-                        <i class="fas fa-users"></i>
-                        <div>
-                            <strong><span id="stats-counter">25</span>K+</strong>
-                            <span>மொத்த மாணவர்கள்</span>
+                            </h3>
+                            <i class="fas fa-times mobile-menu-close"></i>
                         </div>
+                        <li><a href="#" class="active">முகப்பு</a></li>
+                        <li><a href="exam.html">தேர்வுகள்</a></li>
+                        <li><a href="books.html">கையேடு</a></li>
+                        <li><a href="exam-info.html">அறிக்கைகள்</a></li>
+                        <li><a href="plan.html">அட்டவணை</a></li>
+                    </ul>
+                    <div class="navbar-auth">
+                        <i class="fas fa-user-circle profile-icon mobile-view-none"></i>
+                        <i class="fas fa-bars mobile-menu-icon"></i>
                     </div>
-                    <div class="stat-card">
-                        <i class="fas fa-file-alt"></i>
-                        <div>
-                            <strong>500+</strong>
-                            <span>மொத்த தேர்வுகள்</span>
-                        </div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero-section">
+                <div class="container hero-container">
+                    <div class="hero-text" data-aos="fade-right" data-aos-duration="800">
+                        <p class="hero-subtitle" data-aos="fade-right" data-aos-delay="200">10,000+ தரமான வினாக்களில் பயிற்சி</p>
+                        <h1 data-aos="fade-right" data-aos-delay="300"><span>வெற்றி</span> நிச்சயம்! TNPSC தேர்வுகளுக்கு தயாராகுங்கள்</h1>
+                        <p class="hero-description" data-aos="fade-right" data-aos-delay="400">உங்கள் அரசுப் பணி கனவை நனவாக்க, இன்றே பயிற்சியைத் தொடங்குங்கள்.</p>
+                        <a href="#" class="btn-primary" data-aos="fade-up" data-aos-delay="500">
+                            தொடங்குங்கள் <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="stat-card">
-                        <i class="fas fa-question-circle"></i>
-                        <div>
-                            <strong>10K+</strong>
-                            <span>வினா வங்கி</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-trophy"></i>
-                        <div>
-                            <strong>98%</strong>
-                            <span>வெற்றி விகிதம்</span>
-                        </div>
-                    </div>
-                    <div class="stat-card" aria-hidden="true">
-                        <i class="fas fa-users"></i>
-                        <div>
-                            <strong>25K+</strong>
-                            <span>மொத்த மாணவர்கள்</span>
-                        </div>
-                    </div>
-                    <div class="stat-card" aria-hidden="true">
-                        <i class="fas fa-file-alt"></i>
-                        <div>
-                            <strong>500+</strong>
-                            <span>மொத்த தேர்வுகள்</span>
-                        </div>
-                    </div>
-                    <div class="stat-card" aria-hidden="true">
-                        <i class="fas fa-question-circle"></i>
-                        <div>
-                            <strong>10K+</strong>
-                            <span>வினா வங்கி</span>
-                        </div>
-                    </div>
-                    <div class="stat-card" aria-hidden="true">
-                        <i class="fas fa-trophy"></i>
-                        <div>
-                            <strong>98%</strong>
-                            <span>வெற்றி விகிதம்</span>
+                    <div class="hero-image-area" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                        <div class="hero-image-placeholder">
+                            <img src="assets/img/banner/girl.png" alt="TNPSC தேர்வு புத்தகம்">
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="categories-section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2 class="section-title" data-aos="fade-up">முக்கிய தேர்வுகள்</h2>
-                <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
-            </div>
-            <div class="categories-grid">
-                <div class="category-card" data-aos="fade-up" data-aos-delay="0"><i class="fas fa-landmark icon-group1"></i><span>Group 1</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-users icon-group2"></i><span>Group 2/2A</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-pen-alt icon-group4"></i><span>Group 4 & VAO</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-language icon-tamil"></i><span>பொதுத் தமிழ்</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="0"><i class="fas fa-calculator icon-maths"></i><span>கணிதம் (Maths)</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-book icon-history"></i><span>வரலாறு</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-flask icon-science"></i><span>அறிவியல்</span></div>
-                <div class="category-card" data-aos="fade-up" data-aos-delay="300"><i class="far fa-calendar-alt icon-current"></i><span>நடப்பு நிகழ்வுகள்</span></div>
-            </div>
-        </div>
-        </section>
+                <div class="hero-stats-scroller">
+                    <div class="stats-track">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong><span id="stats-counter">25</span>K+</strong>
+                                <span>மொத்த மாணவர்கள்</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <strong>500+</strong>
+                                <span>மொத்த தேர்வுகள்</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-question-circle"></i>
+                            <div>
+                                <strong>10K+</strong>
+                                <span>வினா வங்கி</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <strong>98%</strong>
+                                <span>வெற்றி விகிதம்</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" aria-hidden="true">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>25K+</strong>
+                                <span>மொத்த மாணவர்கள்</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" aria-hidden="true">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <strong>500+</strong>
+                                <span>மொத்த தேர்வுகள்</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" aria-hidden="true">
+                            <i class="fas fa-question-circle"></i>
+                            <div>
+                                <strong>10K+</strong>
+                                <span>வினா வங்கி</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" aria-hidden="true">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <strong>98%</strong>
+                                <span>வெற்றி விகிதம்</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        
-         <section class="notifications-section">
+            <section class="categories-section">
             <div class="container">
                 <div class="section-title-container">
-                    <h2 class="section-title" data-aos="fade-up">சமீபத்திய தேர்வு அறிவிப்புகள்</h2>
+                    <h2 class="section-title" data-aos="fade-up">முக்கிய தேர்வுகள்</h2>
                     <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
                 </div>
-                
-                <div class="swiper notification-slider" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="notification-item">
-                                <div class="notification-item-header">
-                                    <div class="notification-exam">
-                                        <i class="fas fa-pen-alt exam-icon icon-group4"></i>
-                                        <div>
-                                            <h4>Group 4 & VAO - 2024</h4>
-                                            <span>அறிவிப்பு நாள்: <strong>30 Jan 2024</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="notification-item-body">
-                                    <div class="notification-dates">
-                                        <p>கடைசி தேதி: <strong>28 Feb 2024</strong></p>
-                                        <p>தேர்வு நாள்: <strong>09 Jun 2024</strong></p>
-                                    </div>
-                                </div>
-                                <div class="notification-item-footer">
-                                    <div class="notification-link">
-                                        <a href="#" class="btn-secondary">விவரங்கள்</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="swiper-slide">
-                            <div class="notification-item">
-                                <div class="notification-item-header">
-                                    <div class="notification-exam">
-                                        <i class="fas fa-landmark exam-icon icon-group1"></i>
-                                        <div>
-                                            <h4>Group 1 Services - 2024</h4>
-                                            <span>அறிவிப்பு நாள்: <strong>28 Mar 2024</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="notification-item-body">
-                                    <div class="notification-dates">
-                                        <p>கடைசி தேதி: <strong>27 Apr 2024</strong></p>
-                                        <p>தேர்வு நாள்: <strong>13 Jul 2024</strong></p>
-                                    </div>
-                                </div>
-                                <div class="notification-item-footer">
-                                    <div class="notification-link">
-                                        <a href="#" class="btn-secondary">விவரங்கள்</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="categories-grid">
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="0"><i class="fas fa-landmark icon-group1"></i><span>Group 1</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-users icon-group2"></i><span>Group 2/2A</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-pen-alt icon-group4"></i><span>Group 4 & VAO</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-language icon-tamil"></i><span>பொதுத் தமிழ்</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="0"><i class="fas fa-calculator icon-maths"></i><span>கணிதம் (Maths)</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-book icon-history"></i><span>வரலாறு</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-flask icon-science"></i><span>அறிவியல்</span></div>
+                    <div class="category-card" data-aos="fade-up" data-aos-delay="300"><i class="far fa-calendar-alt icon-current"></i><span>நடப்பு நிகழ்வுகள்</span></div>
+                </div>
+            </div>
+            </section>
 
-                        <div class="swiper-slide">
-                            <div class="notification-item">
-                                <div class="notification-item-header">
-                                    <div class="notification-exam">
-                                        <i class="fas fa-users exam-icon icon-group2"></i>
-                                        <div>
-                                            <h4>Group 2/2A (Interview)</h4>
-                                            <span>அறிவிப்பு நாள்: <strong>~ Jun 2024</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="notification-item-body">
-                                    <div class="notification-dates">
-                                        <p>கடைசி தேதி: <strong>~ Jul 2024</strong></p>
-                                        <p>தேர்வு நாள்: <strong>~ Sep 2024</strong></p>
-                                    </div>
-                                </div>
-                                <div class="notification-item-footer">
-                                    <div class="notification-link">
-                                        <a href="#" class="btn-secondary disabled">விரைவில்</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="notification-item">
-                                <div class="notification-item-header">
-                                    <div class="notification-exam">
-                                        <i class="fas fa-graduation-cap exam-icon icon-tamil"></i>
-                                        <div>
-                                            <h4>Combined Engineering</h4>
-                                            <span>அறிவிப்பு நாள்: <strong>15 May 2024</strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="notification-item-body">
-                                    <div class="notification-dates">
-                                        <p>கடைசி தேதி: <strong>14 Jun 2024</strong></p>
-                                        <p>தேர்வு நாள்: <strong>28 Aug 2024</strong></p>
-                                    </div>
-                                </div>
-                                <div class="notification-item-footer">
-                                    <div class="notification-link">
-                                        <a href="#" class="btn-secondary">விவரங்கள்</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+            
+            <section class="notifications-section">
+                <div class="container">
+                    <div class="section-title-container">
+                        <h2 class="section-title" data-aos="fade-up">சமீபத்திய தேர்வு அறிவிப்புகள்</h2>
+                        <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
                     </div>
-                    <div class="swiper-pagination"></div>
                     
+                    <div class="swiper notification-slider" data-aos="fade-up" data-aos-delay="100">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="notification-item">
+                                    <div class="notification-item-header">
+                                        <div class="notification-exam">
+                                            <i class="fas fa-pen-alt exam-icon icon-group4"></i>
+                                            <div>
+                                                <h4>Group 4 & VAO - 2024</h4>
+                                                <span>அறிவிப்பு நாள்: <strong>30 Jan 2024</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-body">
+                                        <div class="notification-dates">
+                                            <p>கடைசி தேதி: <strong>28 Feb 2024</strong></p>
+                                            <p>தேர்வு நாள்: <strong>09 Jun 2024</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-footer">
+                                        <div class="notification-link">
+                                            <a href="#" class="btn-secondary">விவரங்கள்</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <div class="notification-item">
+                                    <div class="notification-item-header">
+                                        <div class="notification-exam">
+                                            <i class="fas fa-landmark exam-icon icon-group1"></i>
+                                            <div>
+                                                <h4>Group 1 Services - 2024</h4>
+                                                <span>அறிவிப்பு நாள்: <strong>28 Mar 2024</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-body">
+                                        <div class="notification-dates">
+                                            <p>கடைசி தேதி: <strong>27 Apr 2024</strong></p>
+                                            <p>தேர்வு நாள்: <strong>13 Jul 2024</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-footer">
+                                        <div class="notification-link">
+                                            <a href="#" class="btn-secondary">விவரங்கள்</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="notification-item">
+                                    <div class="notification-item-header">
+                                        <div class="notification-exam">
+                                            <i class="fas fa-users exam-icon icon-group2"></i>
+                                            <div>
+                                                <h4>Group 2/2A (Interview)</h4>
+                                                <span>அறிவிப்பு நாள்: <strong>~ Jun 2024</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-body">
+                                        <div class="notification-dates">
+                                            <p>கடைசி தேதி: <strong>~ Jul 2024</strong></p>
+                                            <p>தேர்வு நாள்: <strong>~ Sep 2024</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-footer">
+                                        <div class="notification-link">
+                                            <a href="#" class="btn-secondary disabled">விரைவில்</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="notification-item">
+                                    <div class="notification-item-header">
+                                        <div class="notification-exam">
+                                            <i class="fas fa-graduation-cap exam-icon icon-tamil"></i>
+                                            <div>
+                                                <h4>Combined Engineering</h4>
+                                                <span>அறிவிப்பு நாள்: <strong>15 May 2024</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-body">
+                                        <div class="notification-dates">
+                                            <p>கடைசி தேதி: <strong>14 Jun 2024</strong></p>
+                                            <p>தேர்வு நாள்: <strong>28 Aug 2024</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item-footer">
+                                        <div class="notification-link">
+                                            <a href="#" class="btn-secondary">விவரங்கள்</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        
+                        </div>
+                    
+                </div>
+            </section>
+            <section class="courses-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <div class="header-title-wrapper">
+                        <h2 class="section-title">பிரபலமான தேர்வுத் தொடர்கள்</h2>
                     </div>
-                
+                    <a href="#" class="btn-outline">அனைத்தையும் காண்க</a>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card" data-aos="zoom-in-up" data-aos-delay="0">
+                    <a href="exam.html">
+                        <div class="course-image">
+                            <img src="https://placehold.co/300x200/9b59b6/white?text=Group+4" alt="Course Thumbnail">
+                        </div>
+                        <div class="course-content">
+                            <h4>Group 4 & VAO - முழு மாதிரித் தேர்வுத் தொடர் (25 தேர்வுகள்)</h4>
+                            <div class="course-meta">
+                                <span><i class="fas fa-book-open"></i> 25 தேர்வுகள்</span>
+                                <span class="course-price-sale">₹799</span>
+                                <span class="course-price-original">₹499</span>
+                            </div>
+                        </div>
+                        <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
+                        </a>
+                    </div>
+                    <div class="course-card" data-aos="zoom-in-up" data-aos-delay="100">
+                    <a href="exam.html">
+
+                        <div class="course-image">
+                            <img src="https://placehold.co/300x200/f39c12/white?text=Tamil" alt="Course Thumbnail">
+                        </div>
+                        <div class="course-content">
+                            <h4>பொதுத் தமிழ் - முழு பாடத்திட்ட தேர்வுத் தொடர்</h4>
+                            <div class="course-meta">
+                                <span><i class="fas fa-book-open"></i> 50 தேர்வுகள்</span>
+                                <span class="course-price-free">இலவசம்</span>
+                            </div>
+                        </div>
+                        <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
+                        </a>
+                    </div>
+                    <div class="course-card" data-aos="zoom-in-up" data-aos-delay="200">
+                    <a href="exam.html">
+
+                        <div class="course-image">
+                            <img src="https://placehold.co/300x200/3498db/white?text=Group+2" alt="Course Thumbnail">
+                        </div>
+                        <div class="course-content">
+                            <h4>Group 2/2A - முதன்மைத் தேர்வு (Mains) டெஸ்ட் பேட்ச்</h4>
+                            <div class="course-meta">
+                                <span><i class="fas fa-book-open"></i> 15 தேர்வுகள்</span>
+                                <span class="course-price-sale">₹1500</span>
+                                <span class="course-price-original">₹999</span>
+                            </div>
+                        </div>
+                        <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
+                        </a>
+
+                    </div>
+                    <div class="course-card" data-aos="zoom-in-up" data-aos-delay="300">
+                    <a href="exam.html">
+
+                        <div class="course-image">
+                            <img src="https://placehold.co/300x200/8e44ad/white?text=Maths" alt="Course Thumbnail">
+                        </div>
+                        <div class="course-content">
+                            <h4>கணிதம் & திறனறிதல் (Maths & Aptitude) - தலைப்பு வாரியான தேர்வுகள்</h4>
+                            <div class="course-meta">
+                                <span><i class="fas fa-book-open"></i> 30 தேர்வுகள்</span>
+                                <span class="course-price-free">இலவசம்</span>
+                            </div>
+                        </div>
+                        <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
+                        </a>
+
+                    </div>
+                </div>
             </div>
         </section>
-        <section class="courses-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="header-title-wrapper">
-                    <h2 class="section-title">பிரபலமான தேர்வுத் தொடர்கள்</h2>
-                </div>
-                <a href="#" class="btn-outline">அனைத்தையும் காண்க</a>
-            </div>
-            <div class="courses-grid">
-                <div class="course-card" data-aos="zoom-in-up" data-aos-delay="0">
-                   <a href="exam.html">
-                    <div class="course-image">
-                        <img src="https://placehold.co/300x200/9b59b6/white?text=Group+4" alt="Course Thumbnail">
-                    </div>
-                    <div class="course-content">
-                        <h4>Group 4 & VAO - முழு மாதிரித் தேர்வுத் தொடர் (25 தேர்வுகள்)</h4>
-                        <div class="course-meta">
-                            <span><i class="fas fa-book-open"></i> 25 தேர்வுகள்</span>
-                            <span class="course-price-sale">₹799</span>
-                            <span class="course-price-original">₹499</span>
-                        </div>
-                    </div>
-                    <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
-                    </a>
-                </div>
-                <div class="course-card" data-aos="zoom-in-up" data-aos-delay="100">
-                   <a href="exam.html">
 
-                    <div class="course-image">
-                        <img src="https://placehold.co/300x200/f39c12/white?text=Tamil" alt="Course Thumbnail">
-                    </div>
-                    <div class="course-content">
-                        <h4>பொதுத் தமிழ் - முழு பாடத்திட்ட தேர்வுத் தொடர்</h4>
-                        <div class="course-meta">
-                            <span><i class="fas fa-book-open"></i> 50 தேர்வுகள்</span>
-                            <span class="course-price-free">இலவசம்</span>
-                        </div>
-                    </div>
-                    <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
-                    </a>
-                </div>
-                <div class="course-card" data-aos="zoom-in-up" data-aos-delay="200">
-                   <a href="exam.html">
-
-                    <div class="course-image">
-                        <img src="https://placehold.co/300x200/3498db/white?text=Group+2" alt="Course Thumbnail">
-                    </div>
-                    <div class="course-content">
-                        <h4>Group 2/2A - முதன்மைத் தேர்வு (Mains) டெஸ்ட் பேட்ச்</h4>
-                        <div class="course-meta">
-                            <span><i class="fas fa-book-open"></i> 15 தேர்வுகள்</span>
-                            <span class="course-price-sale">₹1500</span>
-                            <span class="course-price-original">₹999</span>
-                        </div>
-                    </div>
-                    <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
-                    </a>
-
-                </div>
-                <div class="course-card" data-aos="zoom-in-up" data-aos-delay="300">
-                   <a href="exam.html">
-
-                    <div class="course-image">
-                        <img src="https://placehold.co/300x200/8e44ad/white?text=Maths" alt="Course Thumbnail">
-                    </div>
-                    <div class="course-content">
-                        <h4>கணிதம் & திறனறிதல் (Maths & Aptitude) - தலைப்பு வாரியான தேர்வுகள்</h4>
-                        <div class="course-meta">
-                            <span><i class="fas fa-book-open"></i> 30 தேர்வுகள்</span>
-                            <span class="course-price-free">இலவசம்</span>
-                        </div>
-                    </div>
-                    <div class="course-footer"> <a href="#">மேலும் அறிக <i class="fas fa-arrow-right"></i></a> </div>
-                    </a>
-
+        <section class="testimonials-section">
+            <div class="container">
+                <div class="section-title-container">
+                    <h2 class="section-title" data-aos="fade-up">வெற்றி பெற்ற மாணவர்களின் கருத்துக்கள்</h2>
+                    <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
                 </div>
             </div>
-        </div>
-    </section>
+            
+            <div class="scroller-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="scroller-track">
+                    <div class="testimonial-card-item">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+                            <p class="testimonial-text">"உங்களின் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. நன்றி!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/e74c3c/white?text=SK" alt="Student photo">
+                                <div class="author-info"> <strong>சங்கவி K.</strong> <span>Group 4 (2024)</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card-item">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+                            <p class="testimonial-text">"பொதுத் தமிழ் இலவச தேர்வுகள் மிகவும் அருமை. நான் அரசுப் பணிக்கு தேர்ந்தெடுக்கப்பட இதுவும் ஒரு முக்கிய காரணம்."</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/2980b9/white?text=MP" alt="Student photo">
+                                <div class="author-info"> <strong>முருகன் P.</strong> <span> இளநிலை உதவியாளர்</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card-item">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> </div>
+                            <p class="testimonial-text">"Group 2 Mains தேர்விற்கு உங்களின் வழிகாட்டுதல் சிறப்பாக இருந்தது. திருத்தங்கள் மற்றும் கருத்துக்கள் என் எழுத்துத் திறனை மேம்படுத்தியது."</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/1abc9c/white?text=AR" alt="Student photo">
+                                <div class="author-info"> <strong>ஆனந்தி R.</strong> <span>Group 2 (2023)</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card-item">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+                            <p class="testimonial-text">"வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. உங்கள் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. நன்றி!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/8e44ad/white?text=RV" alt="Student photo">
+                                <div class="author-info"> <strong>ரவி V.</strong> <span>Group 4 (2024)</span> </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2 class="section-title" data-aos="fade-up">வெற்றி பெற்ற மாணவர்களின் கருத்துக்கள்</h2>
-                <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
+                    <div class="testimonial-card-item" aria-hidden="true">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+                            <p class="testimonial-text">"உங்களின் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. நன்றி!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/e74c3c/white?text=SK" alt="Student photo">
+                                <div class="author-info"> <strong>சங்கவி K.</strong> <span>Group 4 (2024)</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card-item" aria-hidden="true">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+                            <p class="testimonial-text">"பொதுத் தமிழ் இலவச தேர்வுகள் மிகவும் அருமை. நான் அரசுப் பணிக்கு தேர்ந்தெடுக்கப்பட இதுவும் ஒரு முக்கிய காரணம்."</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/2980b9/white?text=MP" alt="Student photo">
+                                <div class="author-info"> <strong>முருகன் P.</strong> <span> இளநிலை உதவியாளர்</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card-item" aria-hidden="true">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> </div>
+                            <p class="testimonial-text">"Group 2 Mains தேர்விற்கு உங்களின் வழிகாட்டுதல் சிறப்பாக இருந்தது. திருத்தங்கள் மற்றும் கருத்துக்கள் என் எழுத்துத் திறனை மேம்படுத்தியது."</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/1abc9c/white?text=AR" alt="Student photo">
+                                <div class="author-info"> <strong>ஆனந்தி R.</strong> <span>Group 2 (2023)</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card-item" aria-hidden="true">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
+                            <p class="testimonial-text">"வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. உங்கள் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. நன்றி!"</p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/60/8e44ad/white?text=RV" alt="Student photo">
+                                <div class="author-info"> <strong>ரவி V.</strong> <span>Group 4 (2024)</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+
         
-        <div class="scroller-container" data-aos="fade-up" data-aos-delay="100">
-            <div class="scroller-track">
-                <div class="testimonial-card-item">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
-                        <p class="testimonial-text">"உங்களின் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. நன்றி!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/e74c3c/white?text=SK" alt="Student photo">
-                            <div class="author-info"> <strong>சங்கவி K.</strong> <span>Group 4 (2024)</span> </div>
+        <section class="contact-section">
+            <div class="container">
+                <div class="section-title-container">
+                    <h2 class="section-title" data-aos="fade-up">தொடர்பு கொள்ளுங்கள்</h2>
+                    <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
+                </div>
+                <div class="contact-container" data-aos="zoom-in" data-aos-duration="600">
+                    <div class="contact-info">
+                        <h3>தொடர்பு விவரங்கள்</h3>
+                        <p>கீழே உள்ள படிவத்தை பூர்த்தி செய்யுங்கள். எங்கள் குழு 24 மணி நேரத்திற்குள் உங்களைத் தொடர்பு கொள்ளும்.</p>
+                        <div class="contact-info-item"> <i class="fas fa-phone-alt"></i> <span>+91 90000 10000</span> </div>
+                        <div class="contact-info-item"> <i class="fas fa-envelope"></i> <span>support@tnpscvazhikatti.com</span> </div>
+                        <div class="contact-info-item"> <i class="fas fa-map-marker-alt"></i> <span>123, காந்தி ரோடு, தி. நகர், சென்னை - 17</span> </div>
+                        <div class="map-placeholder">
+                            <img src="https://placehold.co/500x200/eeeeee/aaaaaa?text=Map+Placeholder" alt="வரைபடம்" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                         </div>
                     </div>
+                    <form class="contact-form">
+                        <div class="form-group"> <label for="name">உங்கள் பெயர் <span class="required-label">*</span></label> <input type="text" id="name" name="name" placeholder="உங்கள் பெயர்" required> </div>
+                        <div class="form-group"> <label for="email">உங்கள் மின்னஞ்சல் <span class="required-label">*</span></label> <input type="email" id="email" name="email" placeholder="உங்கள் மின்னஞ்சல்" required> </div>
+                        <div class="form-group"> <label for="subject">தலைப்பு <span class="required-label">*</span></label> <input type="text" id="subject" name="subject" placeholder="தலைப்பு" required> </div>
+                        <div class="form-group"> <label for="message">செய்தி <span class="required-label">*</span></label> <textarea id="message" name="message" rows="6" placeholder="செய்தி" required></textarea> </div>
+                        <button type="submit" class="btn-primary">செய்தியை அனுப்பு</button>
+                    </form>
                 </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
-                        <p class="testimonial-text">"பொதுத் தமிழ் இலவச தேர்வுகள் மிகவும் அருமை. நான் அரசுப் பணிக்கு தேர்ந்தெடுக்கப்பட இதுவும் ஒரு முக்கிய காரணம்."</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/2980b9/white?text=MP" alt="Student photo">
-                            <div class="author-info"> <strong>முருகன் P.</strong> <span> இளநிலை உதவியாளர்</span> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> </div>
-                        <p class="testimonial-text">"Group 2 Mains தேர்விற்கு உங்களின் வழிகாட்டுதல் சிறப்பாக இருந்தது. திருத்தங்கள் மற்றும் கருத்துக்கள் என் எழுத்துத் திறனை மேம்படுத்தியது."</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/1abc9c/white?text=AR" alt="Student photo">
-                            <div class="author-info"> <strong>ஆனந்தி R.</strong> <span>Group 2 (2023)</span> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card-item">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
-                        <p class="testimonial-text">"வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. உங்கள் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. நன்றி!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/8e44ad/white?text=RV" alt="Student photo">
-                            <div class="author-info"> <strong>ரவி V.</strong> <span>Group 4 (2024)</span> </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </section>
 
-                <div class="testimonial-card-item" aria-hidden="true">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
-                        <p class="testimonial-text">"உங்களின் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. நன்றி!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/e74c3c/white?text=SK" alt="Student photo">
-                            <div class="author-info"> <strong>சங்கவி K.</strong> <span>Group 4 (2024)</span> </div>
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-title-container">
+                    <h2 class="section-title" data-aos="fade-up">அடிக்கடி கேட்கப்படும் கேள்விகள் (FAQ)</h2>
+                    <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
+                </div>
+                <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>தேர்வுத் தொடரில் எப்படி இணைவது?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>நீங்கள் விரும்பும் தேர்வுத் தொடரைத் தேர்ந்தெடுத்து 'Buy Now' பொத்தானை அழுத்தவும். பின்னர், ஆன்லைன் மூலம் பணம் செலுத்தி எளிதாக இணையலாம்.</p>
                         </div>
                     </div>
-                </div>
-                <div class="testimonial-card-item" aria-hidden="true">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
-                        <p class="testimonial-text">"பொதுத் தமிழ் இலவச தேர்வுகள் மிகவும் அருமை. நான் அரசுப் பணிக்கு தேர்ந்தெடுக்கப்பட இதுவும் ஒரு முக்கிய காரணம்."</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/2980b9/white?text=MP" alt="Student photo">
-                            <div class="author-info"> <strong>முருகன் P.</strong> <span> இளநிலை உதவியாளர்</span> </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>வினாக்கள் மற்றும் விடைகள் தமிழிலில் இருக்குமா?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ஆம், எங்களின் அனைத்து மாதிரித் தேர்வுகளும் TNPSC பாடத்திட்டத்தின்படி தமிழ் மற்றும் ஆங்கிலம் ஆகிய இரு மொழிகளிலும் வழங்கப்படும்.</p>
                         </div>
                     </div>
-                </div>
-                <div class="testimonial-card-item" aria-hidden="true">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> </div>
-                        <p class="testimonial-text">"Group 2 Mains தேர்விற்கு உங்களின் வழிகாட்டுதல் சிறப்பாக இருந்தது. திருத்தங்கள் மற்றும் கருத்துக்கள் என் எழுத்துத் திறனை மேம்படுத்தியது."</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/1abc9c/white?text=AR" alt="Student photo">
-                            <div class="author-info"> <strong>ஆனந்தி R.</strong> <span>Group 2 (2023)</span> </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>தேர்வுக்கான பாடக்குறிப்புகள் (Study Materials) கிடைக்குமா?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ஆம், ஒவ்வொரு தேர்வுத் தொடருடனும் தொடர்புடைய பாடக்குறிப்புகள் PDF வடிவில் வழங்கப்படும். அதை நீங்கள் பதிவிறக்கம் செய்துகொள்ளலாம்.</p>
                         </div>
                     </div>
-                </div>
-                <div class="testimonial-card-item" aria-hidden="true">
-                     <div class="testimonial-card">
-                        <div class="testimonial-stars"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div>
-                        <p class="testimonial-text">"வினாக்களின் தரம் TNPSC தேர்வைப் போலவே இருந்தது. உங்கள் டெஸ்ட் பேட்ச் மிகவும் பயனுள்ளதாக இருந்தது. நன்றி!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60/8e44ad/white?text=RV" alt="Student photo">
-                            <div class="author-info"> <strong>ரவி V.</strong> <span>Group 4 (2024)</span> </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>மாதிரித் தேர்வுகளை மொபைலில் எழுத முடியுமா?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>நிச்சயமாக! எங்கள் இணையதளம் மொபைல், டேப்லெட் மற்றும் கணினி என அனைத்து சாதனங்களிலும் சிறப்பாகச் செயல்படும் வகையில் வடிவமைக்கப்பட்டுள்ளது.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    
-    <section class="contact-section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2 class="section-title" data-aos="fade-up">தொடர்பு கொள்ளுங்கள்</h2>
-                <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
-            </div>
-            <div class="contact-container" data-aos="zoom-in" data-aos-duration="600">
-                <div class="contact-info">
-                    <h3>தொடர்பு விவரங்கள்</h3>
-                    <p>கீழே உள்ள படிவத்தை பூர்த்தி செய்யுங்கள். எங்கள் குழு 24 மணி நேரத்திற்குள் உங்களைத் தொடர்பு கொள்ளும்.</p>
-                    <div class="contact-info-item"> <i class="fas fa-phone-alt"></i> <span>+91 90000 10000</span> </div>
-                    <div class="contact-info-item"> <i class="fas fa-envelope"></i> <span>support@tnpscvazhikatti.com</span> </div>
-                    <div class="contact-info-item"> <i class="fas fa-map-marker-alt"></i> <span>123, காந்தி ரோடு, தி. நகர், சென்னை - 17</span> </div>
-                    <div class="map-placeholder">
-                        <img src="https://placehold.co/500x200/eeeeee/aaaaaa?text=Map+Placeholder" alt="வரைபடம்" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        </main>
+
+    <footer class="footer-section">
+            <div class="container footer-grid">
+                <div class="footer-col">
+                    <h3 class="footer-logo">TNPSC வழிகாட்டி</h3>
+                    <p>அரசுப் பணி கனவை நனவாக்க மாணவர்களுக்கு தரமான பயிற்சி மற்றும் மாதிரித் தேர்வுகளை வழங்குவதே எங்கள் நோக்கம்.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-                <form class="contact-form">
-                    <div class="form-group"> <label for="name">உங்கள் பெயர் <span class="required-label">*</span></label> <input type="text" id="name" name="name" placeholder="உங்கள் பெயர்" required> </div>
-                    <div class="form-group"> <label for="email">உங்கள் மின்னஞ்சல் <span class="required-label">*</span></label> <input type="email" id="email" name="email" placeholder="உங்கள் மின்னஞ்சல்" required> </div>
-                    <div class="form-group"> <label for="subject">தலைப்பு <span class="required-label">*</span></label> <input type="text" id="subject" name="subject" placeholder="தலைப்பு" required> </div>
-                    <div class="form-group"> <label for="message">செய்தி <span class="required-label">*</span></label> <textarea id="message" name="message" rows="6" placeholder="செய்தி" required></textarea> </div>
-                    <button type="submit" class="btn-primary">செய்தியை அனுப்பு</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-section">
-        <div class="container">
-            <div class="section-title-container">
-                <h2 class="section-title" data-aos="fade-up">அடிக்கடி கேட்கப்படும் கேள்விகள் (FAQ)</h2>
-                <img src="assets/img/design/line.png" alt="divider" data-aos="fade-up" class="title-divider">
-            </div>
-            <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h4>தேர்வுத் தொடரில் எப்படி இணைவது?</h4>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>நீங்கள் விரும்பும் தேர்வுத் தொடரைத் தேர்ந்தெடுத்து 'Buy Now' பொத்தானை அழுத்தவும். பின்னர், ஆன்லைன் மூலம் பணம் செலுத்தி எளிதாக இணையலாம்.</p>
-                    </div>
+                <div class="footer-col">
+                    <h4>முக்கிய இணைப்புகள்</h4>
+                    <ul>
+                        <li><a href="#">எங்களை பற்றி</a></li>
+                        <li><a href="#">அனைத்து தேர்வுகள்</a></li>
+                        <li><a href="#">என் கணக்கு</a></li>
+                        <li><a href="#">வலைப்பதிவு</a></li>
+                        <li><a href="#">தொடர்பு</a></li>
+                    </ul>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h4>வினாக்கள் மற்றும் விடைகள் தமிழிலில் இருக்குமா?</h4>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>ஆம், எங்களின் அனைத்து மாதிரித் தேர்வுகளும் TNPSC பாடத்திட்டத்தின்படி தமிழ் மற்றும் ஆங்கிலம் ஆகிய இரு மொழிகளிலும் வழங்கப்படும்.</p>
-                    </div>
+                <div class="footer-col">
+                    <h4>தேர்வுகள்</h4>
+                    <ul>
+                        <li><a href="#">Group 1</a></li>
+                        <li><a href="#">Group 2/2A</a></li>
+                        <li><a href="#">Group 4</a></li>
+                        <li><a href="#">பொதுத் தமிழ்</a></li>
+                        <li><a href="#">கணிதம்</a></li>
+                    </ul>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h4>தேர்வுக்கான பாடக்குறிப்புகள் (Study Materials) கிடைக்குமா?</h4>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>ஆம், ஒவ்வொரு தேர்வுத் தொடருடனும் தொடர்புடைய பாடக்குறிப்புகள் PDF வடிவில் வழங்கப்படும். அதை நீங்கள் பதிவிறக்கம் செய்துகொள்ளலாம்.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h4>மாதிரித் தேர்வுகளை மொபைலில் எழுத முடியுமா?</h4>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>நிச்சயமாக! எங்கள் இணையதளம் மொபைல், டேப்லெட் மற்றும் கணினி என அனைத்து சாதனங்களிலும் சிறப்பாகச் செயல்படும் வகையில் வடிவமைக்கப்பட்டுள்ளது.</p>
-                    </div>
+                <div class="footer-col">
+                    <h4>சந்தா செலுத்து</h4>
+                    <p>புதிய தேர்வு அறிவிப்புகளை உங்கள் மின்னஞ்சலில் பெறுங்கள்.</p>
+                    <form class="footer-subscribe-form">
+                        <input type="email" placeholder="உங்கள் மின்னஞ்சல்">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
-
-    </main>
-
-   <footer class="footer-section">
-        <div class="container footer-grid">
-            <div class="footer-col">
-                <h3 class="footer-logo">TNPSC வழிகாட்டி</h3>
-                <p>அரசுப் பணி கனவை நனவாக்க மாணவர்களுக்கு தரமான பயிற்சி மற்றும் மாதிரித் தேர்வுகளை வழங்குவதே எங்கள் நோக்கம்.</p>
-                <div class="footer-socials">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TNPSC வழிகாட்டி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
             </div>
-            <div class="footer-col">
-                <h4>முக்கிய இணைப்புகள்</h4>
-                <ul>
-                    <li><a href="#">எங்களை பற்றி</a></li>
-                    <li><a href="#">அனைத்து தேர்வுகள்</a></li>
-                    <li><a href="#">என் கணக்கு</a></li>
-                    <li><a href="#">வலைப்பதிவு</a></li>
-                    <li><a href="#">தொடர்பு</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>தேர்வுகள்</h4>
-                <ul>
-                    <li><a href="#">Group 1</a></li>
-                    <li><a href="#">Group 2/2A</a></li>
-                    <li><a href="#">Group 4</a></li>
-                    <li><a href="#">பொதுத் தமிழ்</a></li>
-                    <li><a href="#">கணிதம்</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>சந்தா செலுத்து</h4>
-                <p>புதிய தேர்வு அறிவிப்புகளை உங்கள் மின்னஞ்சலில் பெறுங்கள்.</p>
-                <form class="footer-subscribe-form">
-                    <input type="email" placeholder="உங்கள் மின்னஞ்சல்">
-                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                </form>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 TNPSC வழிகாட்டி. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
-        </div>
-    </footer>
+        </footer>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize AOS (Animate on Scroll)
-    AOS.init({
-        once: true,
-        duration: 800,
-    });
-    
-    // 1. Preloader
-    window.addEventListener('load', function() {
-        document.body.classList.add('loaded');
-    });
-
-    // 2. Mobile Menu Functionality
-    const mobileMenuIcon = document.querySelector('.mobile-menu-icon');
-    const mobileMenuClose = document.querySelector('.mobile-menu-close');
-    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-    const body = document.body;
-    const openMenu = () => body.classList.add('mobile-menu-active');
-    const closeMenu = () => body.classList.remove('mobile-menu-active');
-    if (mobileMenuIcon && mobileMenuClose) {
-        mobileMenuIcon.addEventListener('click', openMenu);
-        mobileMenuClose.addEventListener('click', closeMenu);
-        // mobileMenuOverlay.addEventListener('click', closeMenu);
-    }
-
-    // 3. FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            item.classList.toggle('active');
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS (Animate on Scroll)
+        AOS.init({
+            once: true,
+            duration: 800,
         });
-    });
+        
+        // 1. Preloader
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
 
-    // 4. Fixed Header Padding Adjustment
-    const header = document.querySelector('header');
-    const mainContent = document.querySelector('main');
-    
-    function adjustMainPadding() {
-        if (header && mainContent) {
-            const headerHeight = header.offsetHeight;
-            mainContent.style.paddingTop = `${headerHeight}px`;
+        // 2. Mobile Menu Functionality
+        const mobileMenuIcon = document.querySelector('.mobile-menu-icon');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const body = document.body;
+        const openMenu = () => body.classList.add('mobile-menu-active');
+        const closeMenu = () => body.classList.remove('mobile-menu-active');
+        if (mobileMenuIcon && mobileMenuClose) {
+            mobileMenuIcon.addEventListener('click', openMenu);
+            mobileMenuClose.addEventListener('click', closeMenu);
+            // mobileMenuOverlay.addEventListener('click', closeMenu);
         }
-    }
-    
-    adjustMainPadding(); // Adjust on initial load
-    window.addEventListener('resize', adjustMainPadding); // Adjust on window resize
-    
 
-    // 5. 🚀 NEW Notification Slider (Swiper) 🚀
-    new Swiper('.notification-slider', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        // Autoplay added
-        autoplay: {
-            delay: 1500, // 2.5 seconds
-            disableOnInteraction: false, // Continue autoplay after user interaction
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        // Navigation removed
-        breakpoints: {
-            // when window width is >= 768px
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 30
-            },
-            // when window width is >= 1024px
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 30
+        // 3. FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+
+        // 4. Fixed Header Padding Adjustment
+        const header = document.querySelector('header');
+        const mainContent = document.querySelector('main');
+        
+        function adjustMainPadding() {
+            if (header && mainContent) {
+                const headerHeight = header.offsetHeight;
+                mainContent.style.paddingTop = `${headerHeight}px`;
             }
         }
-    });
+        
+        adjustMainPadding(); // Adjust on initial load
+        window.addEventListener('resize', adjustMainPadding); // Adjust on window resize
+        
 
-});
-</script>
-</body>
-</html>
+        // 5. 🚀 NEW Notification Slider (Swiper) 🚀
+        new Swiper('.notification-slider', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            // Autoplay added
+            autoplay: {
+                delay: 1500, // 2.5 seconds
+                disableOnInteraction: false, // Continue autoplay after user interaction
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            // Navigation removed
+            breakpoints: {
+                // when window width is >= 768px
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                // when window width is >= 1024px
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            }
+        });
+
+    });
+    </script>
+    </body>
+    </html>
