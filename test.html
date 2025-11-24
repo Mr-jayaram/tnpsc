@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil GK Quiz Modal (Fixed)</title>
+    
+    <style>
+    /* --- General Styling --- */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f4f7f6;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .trigger-button {
+        padding: 15px 30px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.1s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .trigger-button:hover {
+        background-color: #1e7e34;
+        transform: translateY(-2px);
+    }
+
+    /* --- Modal Structure --- */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); 
+        opacity: 0;
+        transition: opacity 0.5s ease; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal.is-visible {
+        display: flex;
+        opacity: 1;
+    }
+
+    .modal-content {
+        background-color: #ffffff;
+        padding: 0; 
+        border-radius: 10px;
+        /* --- UPDATED WIDTH --- */
+        max-width: 600px; 
+        width: 95%; 
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        position: relative;
+        /* --- UPDATED HEIGHT --- */
+        max-height: 95vh; 
+        overflow-y: auto; 
+        
+        transform: scale(0.8) translateY(-20px);
+        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+    }
+    
+    .modal.is-visible .modal-content {
+        transform: scale(1) translateY(0);
+    }
+
+    /* --- STICKY HEADER STRUCTURE --- */
+    .modal-header {
+        position: sticky;
+        top: 0; 
+        background-color: #ffffff; 
+        padding: 30px 30px 10px 30px; 
+        border-bottom: 2px solid #ddd;
+        z-index: 10; 
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    /* Close Button (X in corner) */
+    .close-button {
+        position: absolute;
+        top: 15px; 
+        right: 15px; 
+        font-size: 32px;
+        font-weight: lighter;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: #aaa;
+        transition: color 0.2s;
+        line-height: 1;
+    }
+
+    .close-button:hover {
+        color: #333;
+    }
+
+    /* --- Quiz Content Styling --- */
+    .modal-content h2 {
+        text-align: center;
+        color: #000000; 
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 24px;
+    }
+    
+    .modal-body {
+        padding: 10px 30px 30px 30px; 
+    }
+
+    .question-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #fafafa;
+    }
+    
+    .question-item > p, .question-item > .answer, .question-item > .reveal-container {
+        margin: 10px 0; 
+    }
+    
+    .reveal-container {
+        display: flex;
+        justify-content: flex-end; 
+        width: 100%;
+    }
+
+    .question-item p {
+        font-weight: bold;
+        color: #000000; 
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 17px;
+    }
+
+    .answer {
+        color: #333;
+        font-style: italic;
+        padding-left: 10px;
+        border-left: 3px solid #28a745; 
+        display: none; /* Initially hidden */
+        margin-top: 10px;
+    }
+
+    .answer.is-revealed {
+        display: block; /* Revealed state */
+    }
+
+    .reveal-btn {
+        background-color: #28a745; 
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }
+    
+    .reveal-btn.hide-state {
+        background-color: #dc3545; 
+    }
+
+    .reveal-btn:hover {
+        background-color: #1e7e34; 
+    }
+    
+    .reveal-btn.hide-state:hover {
+        background-color: #c82333; 
+    }
+    
+    /* --- Modal Footer Styling (Sticky Footer) --- */
+    .modal-footer {
+        padding: 20px 30px 30px 30px; 
+        border-top: 1px solid #ddd;
+        text-align: right;
+        margin-top: 0;
+        background-color: #ffffff;
+        position: sticky;
+        bottom: 0; 
+        z-index: 10;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    
+    .footer-close-btn {
+        background-color: #6c757d; 
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.2s;
+    }
+    
+    .footer-close-btn:hover {
+        background-color: #5a6268;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 650px) {
+        .modal-content {
+            width: 95%;
+            max-width: 95%; 
+            max-height: 90vh; 
+        }
+        
+        .modal-header, .modal-body, .modal-footer {
+            padding-left: 15px; 
+            padding-right: 15px;
+        }
+        .modal-header {
+             padding-top: 20px; 
+        }
+        .modal-footer {
+             padding-bottom: 20px; 
+        }
+        .modal-content h2 {
+            font-size: 20px; 
+        }
+        .question-item p {
+            font-size: 15px; 
+        }
+        .reveal-btn {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <button id="openModalBtn" class="trigger-button">பொது அறிவு வினாக்களைக் காண</button>
+
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button class="close-button" id="closeModalBtn">&times;</button>
+                <h2>💡 அறிவை மேம்படுத்த 10 கேள்விகள்</h2>
+            </div>
+            <div class="modal-body">
+                <div class="question-item">
+                    <p>1 :இந்தியாவின் முதல் பெண் பிரதமர் யார்?</p>
+                    <div class="answer">பதில்: **இந்திரா காந்தி**</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <p> 2: தமிழ்நாட்டின் மாநில விலங்கு எது?</p>
+                    <div class="answer">பதில்: **நீலகிரி வரையாடு** (Nilgiri Tahr)</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 3: சூரிய குடும்பத்தில் உள்ள மிகப்பெரிய கிரகம் எது?</p>
+                    <div class="answer">பதில்: **வியாழன்** (Jupiter)</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 4: உலகிலேயே மிக நீளமான நதி எது?</p>
+                    <div class="answer">பதில்: **நைல் நதி**</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 5: 'இந்தியாவின் முதுகெலும்பு' என்று அழைக்கப்படுவது எது?</p>
+                    <div class="answer">பதில்: **விவசாயம்** (Agriculture)</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 6: ஒரு கிலோகிராம் (Kilogram) என்பது எத்தனை கிராம்?</p>
+                    <div class="answer">பதில்: **1000 கிராம்**</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 7: நோபல் பரிசு எத்தனை பிரிவுகளில் வழங்கப்படுகிறது?</p>
+                    <div class="answer">பதில்: **6 பிரிவுகள்** (அமைதி, இயற்பியல், வேதியியல், மருத்துவம், இலக்கியம், பொருளாதாரம்)</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 8: உலக மக்கள் தொகை தினம் எப்போது அனுசரிக்கப்படுகிறது?</p>
+                    <div class="answer">பதில்: **ஜூலை 11**</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 9: அணுவின் மூன்று அடிப்படை துகள்கள் யாவை?</p>
+                    <div class="answer">பதில்: **புரோட்டான், நியூட்ரான் மற்றும் எலக்ட்ரான்**</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <p> 10: சுதந்திர இந்தியாவின் முதல் குடியரசுத் தலைவர் யார்?</p>
+                    <div class="answer">பதில்: **டாக்டர் ராஜேந்திர பிரசாத்**</div>
+                    <div class="reveal-container">
+                        <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
+                    </div>
+                </div>
+            </div> 
+          
+            </div>
+    </div>
+
+    <script>
+        // --- JavaScript Functionality ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('quizModal');
+            const openBtn = document.getElementById('openModalBtn');
+            const closeBtn = document.getElementById('closeModalBtn'); // X button
+            const footerCloseBtn = document.getElementById('footerCloseBtn'); // Footer close button
+            const revealButtons = document.querySelectorAll('.reveal-btn');
+
+            // --- Modal Open/Close Logic ---
+            const openModal = () => {
+                modal.style.display = 'flex'; // Ensure display is flex for centering
+                // Using a small timeout ensures the transition starts correctly
+                setTimeout(() => {
+                    modal.classList.add('is-visible');
+                }, 10);
+                document.body.style.overflow = 'hidden'; 
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('is-visible');
+                document.body.style.overflow = 'auto'; 
+                
+                // Wait for the fade-out and scale transition to complete (0.5s)
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 500); 
+            };
+            
+            openBtn.addEventListener('click', openModal);
+            
+            closeBtn.addEventListener('click', closeModal);
+            footerCloseBtn.addEventListener('click', closeModal); 
+
+            // Close when the Escape key is pressed
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
+                    closeModal();
+                }
+            });
+
+            // --- Answer Reveal Logic (FIXED for reliable lookup) ---
+            revealButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Find the closest parent with class .question-item
+                    const questionItem = button.closest('.question-item'); 
+                    
+                    // Then find the .answer div inside that specific question item
+                    const answerDiv = questionItem.querySelector('.answer');
+                    
+                    // Toggle the 'is-revealed' class
+                    answerDiv.classList.toggle('is-revealed');
+                    button.classList.toggle('hide-state');
+                    
+                    // Change button text and color based on the state
+                    if (answerDiv.classList.contains('is-revealed')) {
+                        button.textContent = 'பதிலை மறை';
+                    } else {
+                        button.textContent = 'பதிலை வெளிப்படுத்து';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
