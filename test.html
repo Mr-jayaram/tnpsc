@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamil GK Quiz Modal (Fixed)</title>
+    <title>Tamil GK Quiz Test-Modal</title>
     
     <style>
     /* --- General Styling --- */
@@ -18,7 +18,8 @@
         line-height: 1.6;
     }
 
-    .trigger-button {
+    /* Renamed Class */
+    .test-modal-trigger-btn {
         padding: 15px 30px;
         background-color: #28a745;
         color: white;
@@ -30,7 +31,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .trigger-button:hover {
+    .test-modal-trigger-btn:hover {
         background-color: #1e7e34;
         transform: translateY(-2px);
     }
@@ -56,16 +57,15 @@
         opacity: 1;
     }
 
-    .modal-content {
+    /* Renamed Class */
+    .test-modal-content {
         background-color: #ffffff;
         padding: 0; 
         border-radius: 10px;
-        /* --- UPDATED WIDTH --- */
-        max-width: 600px; 
+        max-width:600px; 
         width: 95%; 
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         position: relative;
-        /* --- UPDATED HEIGHT --- */
         max-height: 95vh; 
         overflow-y: auto; 
         
@@ -73,12 +73,12 @@
         transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2);
     }
     
-    .modal.is-visible .modal-content {
+    .modal.is-visible .test-modal-content {
         transform: scale(1) translateY(0);
     }
 
-    /* --- STICKY HEADER STRUCTURE --- */
-    .modal-header {
+    /* --- STICKY HEADER STRUCTURE (Renamed Class) --- */
+    .test-modal-header {
         position: sticky;
         top: 0; 
         background-color: #ffffff; 
@@ -89,8 +89,8 @@
         border-top-right-radius: 10px;
     }
 
-    /* Close Button (X in corner) */
-    .close-button {
+    /* Close Button (X in corner) (Renamed Class) */
+    .test-modal-close-btn {
         position: absolute;
         top: 15px; 
         right: 15px; 
@@ -99,17 +99,16 @@
         border: none;
         background: none;
         cursor: pointer;
-        color: #aaa;
+        color: red;
         transition: color 0.2s;
         line-height: 1;
+        font-weight: bolder;
     }
 
-    .close-button:hover {
-        color: #333;
-    }
-
+   
     /* --- Quiz Content Styling --- */
-    .modal-content h2 {
+    /* Updated to target new content class */
+    .test-modal-content h2 {
         text-align: center;
         color: #000000; 
         padding-bottom: 0;
@@ -118,7 +117,8 @@
         font-size: 24px;
     }
     
-    .modal-body {
+    /* Renamed Class */
+    .test-modal-body {
         padding: 10px 30px 30px 30px; 
     }
 
@@ -153,12 +153,12 @@
         font-style: italic;
         padding-left: 10px;
         border-left: 3px solid #28a745; 
-        display: none; /* Initially hidden */
+        display: none; 
         margin-top: 10px;
     }
 
     .answer.is-revealed {
-        display: block; /* Revealed state */
+        display: block; 
     }
 
     .reveal-btn {
@@ -184,54 +184,25 @@
         background-color: #c82333; 
     }
     
-    /* --- Modal Footer Styling (Sticky Footer) --- */
-    .modal-footer {
-        padding: 20px 30px 30px 30px; 
-        border-top: 1px solid #ddd;
-        text-align: right;
-        margin-top: 0;
-        background-color: #ffffff;
-        position: sticky;
-        bottom: 0; 
-        z-index: 10;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-    
-    .footer-close-btn {
-        background-color: #6c757d; 
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.2s;
-    }
-    
-    .footer-close-btn:hover {
-        background-color: #5a6268;
-    }
-
     /* Mobile Adjustments */
     @media (max-width: 650px) {
-        .modal-content {
+        .test-modal-content {
             width: 95%;
             max-width: 95%; 
             max-height: 90vh; 
         }
         
-        .modal-header, .modal-body, .modal-footer {
+        /* Updated Classes */
+        .test-modal-header, .test-modal-body {
             padding-left: 15px; 
             padding-right: 15px;
         }
-        .modal-header {
+        .test-modal-header {
              padding-top: 20px; 
         }
-        .modal-footer {
-             padding-bottom: 20px; 
-        }
-        .modal-content h2 {
+        
+        /* Updated Class */
+        .test-modal-content h2 {
             font-size: 20px; 
         }
         .question-item p {
@@ -246,16 +217,17 @@
 </head>
 <body>
 
-    <button id="openModalBtn" class="trigger-button">பொது அறிவு வினாக்களைக் காண</button>
+    <button id="test-modal-open-btn" class="test-modal-trigger-btn">பொது அறிவு வினாக்களைக் காண</button>
 
-    <div id="quizModal" class="modal">
-        <div class="modal-content">
+    <div id="test-modal-quiz-modal" class="modal">
+        <div class="test-modal-content">
             
-            <div class="modal-header">
-                <button class="close-button" id="closeModalBtn">&times;</button>
+            <div class="test-modal-header">
+                <button class="test-modal-close-btn" id="test-modal-close-btn">&times;</button>
                 <h2>💡 அறிவை மேம்படுத்த 10 கேள்விகள்</h2>
             </div>
-            <div class="modal-body">
+            
+            <div class="test-modal-body">
                 <div class="question-item">
                     <p>1 :இந்தியாவின் முதல் பெண் பிரதமர் யார்?</p>
                     <div class="answer">பதில்: **இந்திரா காந்தி**</div>
@@ -336,23 +308,21 @@
                     </div>
                 </div>
             </div> 
-          
             </div>
     </div>
 
     <script>
-        // --- JavaScript Functionality ---
+        // --- JavaScript Functionality (Updated IDs) ---
         document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('quizModal');
-            const openBtn = document.getElementById('openModalBtn');
-            const closeBtn = document.getElementById('closeModalBtn'); // X button
-            const footerCloseBtn = document.getElementById('footerCloseBtn'); // Footer close button
+            // Updated IDs
+            const modal = document.getElementById('test-modal-quiz-modal');
+            const openBtn = document.getElementById('test-modal-open-btn');
+            const closeBtn = document.getElementById('test-modal-close-btn'); 
             const revealButtons = document.querySelectorAll('.reveal-btn');
 
             // --- Modal Open/Close Logic ---
             const openModal = () => {
-                modal.style.display = 'flex'; // Ensure display is flex for centering
-                // Using a small timeout ensures the transition starts correctly
+                modal.style.display = 'flex'; 
                 setTimeout(() => {
                     modal.classList.add('is-visible');
                 }, 10);
@@ -363,16 +333,13 @@
                 modal.classList.remove('is-visible');
                 document.body.style.overflow = 'auto'; 
                 
-                // Wait for the fade-out and scale transition to complete (0.5s)
                 setTimeout(() => {
                     modal.style.display = 'none';
                 }, 500); 
             };
             
             openBtn.addEventListener('click', openModal);
-            
             closeBtn.addEventListener('click', closeModal);
-            footerCloseBtn.addEventListener('click', closeModal); 
 
             // Close when the Escape key is pressed
             document.addEventListener('keydown', (e) => {
@@ -381,7 +348,7 @@
                 }
             });
 
-            // --- Answer Reveal Logic (FIXED for reliable lookup) ---
+            // --- Answer Reveal Logic ---
             revealButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     // Find the closest parent with class .question-item
