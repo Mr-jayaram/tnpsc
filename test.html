@@ -1,412 +1,615 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamil GK Quiz Test-Modal (Fixed Hidden Button)</title>
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamil GK Quiz Test - Modal</title>
+
     <style>
-    /* --- General Styling --- */
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f4f7f6;
-        margin: 0;
-        line-height: 1.6;
-    }
+        :root {
+            --primary: #28a745;
+            --primary-dark: #1e7e34;
+            --danger: #dc3545;
+            --danger-dark: #c82333;
+            --bg-light: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-soft: #e5e7eb;
+        }
 
-    /* Style for the trigger button. Initially hidden with opacity and pointer-events. */
-    .test-modal-trigger-btn {
-        padding: 15px 30px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.1s, opacity 0.5s;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        
-        /* FIX: Initial hidden state with transition */
-        opacity: 0; 
-        pointer-events: none; 
-    }
+        /* --- General Styling --- */
+        * {
+            box-sizing: border-box;
+        }
 
-    /* Class added by JS to show the button if the modal has been seen */
-    .test-modal-trigger-btn.is-ready {
-        opacity: 1;
-        pointer-events: auto;
-    }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top, #e0ffe8 0, var(--bg-light) 45%, #e0f2fe 100%);
+            color: var(--text-main);
+        }
 
-    .test-modal-trigger-btn:hover {
-        background-color: #1e7e34;
-        transform: translateY(-2px);
-    }
+        /* --- Trigger Button (initially hidden, shown after first open) --- */
+        .test-modal-trigger-btn {
+            padding: 14px 26px;
+            border: none;
+            border-radius: 999px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), #1cc56e);
+            color: #ffffff;
+            box-shadow: 0 12px 25px rgba(40, 167, 69, 0.35);
+            transition:
+                background 0.3s ease,
+                transform 0.15s ease,
+                box-shadow 0.3s ease,
+                opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
 
-    /* --- Modal Structure --- */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6); 
-        opacity: 0;
-        transition: opacity 0.5s ease; 
-        justify-content: center;
-        align-items: center;
-    }
+        .test-modal-trigger-btn span.icon {
+            font-size: 20px;
+        }
 
-    .modal.is-visible {
-        display: flex;
-        opacity: 1;
-    }
+        .test-modal-trigger-btn.is-ready {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
-    .test-modal-content {
-        background-color: #ffffff;
-        padding: 0; 
-        border-radius: 10px;
-        max-width: 800px; 
-        width: 95%; 
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        position: relative;
-        max-height: 95vh; 
-        overflow-y: auto; 
-        
-        transform: scale(0.8) translateY(-20px);
-        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2);
-    }
-    
-    .modal.is-visible .test-modal-content {
-        transform: scale(1) translateY(0);
-    }
+        .test-modal-trigger-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #12a857);
+            transform: translateY(-1px);
+            box-shadow: 0 16px 30px rgba(40, 167, 69, 0.45);
+        }
 
-    /* --- STICKY HEADER STRUCTURE --- */
-    .test-modal-header {
-        position: sticky;
-        top: 0; 
-        background-color: #ffffff; 
-        padding: 30px 30px 10px 30px; 
-        border-bottom: 2px solid #ddd;
-        z-index: 10; 
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
+        .test-modal-trigger-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        }
 
-    .test-modal-close-btn {
-        position: absolute;
-        top: 15px; 
-        right: 15px; 
-        font-size: 32px;
-        font-weight: lighter;
-        border: none;
-        background: none;
-        cursor: pointer;
-        color: #aaa;
-        transition: color 0.2s;
-        line-height: 1;
-    }
+        /* --- Modal Overlay --- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(15, 23, 42, 0.6);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
 
-    .test-modal-close-btn:hover {
-        color: #333;
-    }
+        .modal.is-visible {
+            display: flex;
+            opacity: 1;
+        }
 
-    /* --- Quiz Content Styling --- */
-    .test-modal-content h2 {
-        text-align: center;
-        color: #000000; 
-        padding-bottom: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-        font-size: 24px;
-    }
-    
-    .test-modal-body {
-        padding: 10px 30px 30px 30px; 
-    }
-
-    .question-item {
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        padding: 15px;
-        margin-bottom: 15px;
-        background-color: #fafafa;
-    }
-    
-    .question-item > p, .question-item > .answer, .question-item > .reveal-container {
-        margin: 10px 0; 
-    }
-    
-    .reveal-container {
-        display: flex;
-        justify-content: flex-end; 
-        width: 100%;
-    }
-
-    .question-item p {
-        font-weight: bold;
-        color: #000000; 
-        margin-top: 0;
-        margin-bottom: 10px;
-        font-size: 17px;
-    }
-
-    .answer {
-        color: #333;
-        font-style: italic;
-        padding-left: 10px;
-        border-left: 3px solid #28a745; 
-        display: none; 
-        margin-top: 10px;
-    }
-
-    .answer.is-revealed {
-        display: block; 
-    }
-
-    .reveal-btn {
-        background-color: #28a745; 
-        color: white;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background-color 0.2s;
-    }
-    
-    .reveal-btn.hide-state {
-        background-color: #dc3545; 
-    }
-
-    .reveal-btn:hover {
-        background-color: #1e7e34; 
-    }
-    
-    .reveal-btn.hide-state:hover {
-        background-color: #c82333; 
-    }
-    
-    /* Mobile Adjustments */
-    @media (max-width: 650px) {
+        /* --- Modal Content --- */
         .test-modal-content {
-            width: 95%;
-            max-width: 95%; 
-            max-height: 90vh; 
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow:
+                0 20px 45px rgba(15, 23, 42, 0.35),
+                0 0 0 1px rgba(148, 163, 184, 0.2);
+            overflow: hidden;
+            transform: translateY(20px) scale(0.96);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.1);
         }
-        
-        .test-modal-header, .test-modal-body {
-            padding-left: 15px; 
-            padding-right: 15px;
+
+        .modal.is-visible .test-modal-content {
+            transform: translateY(0) scale(1);
         }
+
+        /* --- Sticky Header --- */
         .test-modal-header {
-             padding-top: 20px; 
+            position: sticky;
+            top: 0;
+            padding: 18px 22px 12px 22px;
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 45%, #ecfdf3 100%);
+            border-bottom: 1px solid var(--border-soft);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
-        
-        .test-modal-content h2 {
-            font-size: 20px; 
+
+        .header-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
         }
-        .question-item p {
-            font-size: 15px; 
-        }
-        .reveal-btn {
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
             font-size: 12px;
-            padding: 6px 10px;
+            background-color: rgba(16, 185, 129, 0.08);
+            color: #047857;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
         }
-    }
-</style>
+
+        .badge-pill span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background-color: #10b981;
+        }
+
+        .test-modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .test-modal-header h2 span.emoji {
+            font-size: 22px;
+        }
+
+        .test-modal-subtitle {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Close button */
+        .test-modal-close-btn {
+            border: none;
+            background: transparent;
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+            color: #9ca3af;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            width: 32px;
+            height: 32px;
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease,
+                transform 0.1s ease;
+        }
+
+        .test-modal-close-btn:hover {
+            background-color: rgba(148, 163, 184, 0.18);
+            color: #4b5563;
+            transform: scale(1.05);
+        }
+
+        .test-modal-close-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* --- Modal Body --- */
+        .test-modal-body {
+            padding: 16px 22px 22px 22px;
+            overflow-y: auto;
+        }
+
+        /* Custom nice scroll (for WebKit browsers) */
+        .test-modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .test-modal-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .test-modal-body::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.6);
+            border-radius: 999px;
+        }
+
+        /* --- Question Items --- */
+        .question-item {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            padding: 12px 14px 10px 14px;
+            border: 1px solid rgba(209, 213, 219, 0.8);
+            margin-bottom: 12px;
+            box-shadow: 0 3px 6px rgba(148, 163, 184, 0.18);
+            transition:
+                box-shadow 0.22s ease,
+                transform 0.22s ease,
+                border-color 0.22s ease,
+                background-color 0.22s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .question-item:hover {
+            background-color: #ffffff;
+            border-color: rgba(52, 211, 153, 0.45);
+            box-shadow: 0 6px 14px rgba(148, 163, 184, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .question-item p {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .question-item-index {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* --- Answer --- */
+        .answer {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #ecfdf3;
+            border: 1px dashed rgba(16, 185, 129, 0.6);
+            font-size: 14px;
+            font-style: normal;
+            color: #064e3b;
+            display: none;
+            transform-origin: top;
+            animation: fadeInAnswer 0.25s ease-out;
+        }
+
+        .answer strong {
+            font-weight: 700;
+        }
+
+        .answer.is-revealed {
+            display: block;
+        }
+
+        @keyframes fadeInAnswer {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Reveal Button Container --- */
+        .reveal-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 6px;
+        }
+
+        .reveal-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            background-color: var(--primary);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition:
+                background-color 0.2s ease,
+                transform 0.1s ease,
+                box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.35);
+        }
+
+        .reveal-btn::before {
+            content: "👁";
+            font-size: 14px;
+        }
+
+        .reveal-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-0.5px);
+            box-shadow: 0 7px 14px rgba(22, 163, 74, 0.45);
+        }
+
+        .reveal-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 7px rgba(34, 197, 94, 0.35);
+        }
+
+        .reveal-btn.hide-state {
+            background-color: var(--danger);
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
+        }
+
+        .reveal-btn.hide-state::before {
+            content: "🙈";
+        }
+
+        .reveal-btn.hide-state:hover {
+            background-color: var(--danger-dark);
+            box-shadow: 0 7px 14px rgba(220, 38, 38, 0.5);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .test-modal-content {
+                max-height: 95vh;
+                border-radius: 16px;
+            }
+
+            .test-modal-header {
+                padding: 14px 16px 8px 16px;
+            }
+
+            .test-modal-body {
+                padding: 12px 16px 16px 16px;
+            }
+
+            .test-modal-header h2 {
+                font-size: 18px;
+            }
+
+            .test-modal-subtitle {
+                font-size: 12px;
+            }
+
+            .question-item {
+                padding: 10px 11px;
+                margin-bottom: 10px;
+            }
+
+            .question-item p {
+                font-size: 14px;
+            }
+
+            .answer {
+                font-size: 13px;
+            }
+
+            .reveal-container {
+                justify-content: space-between;
+            }
+
+            .reveal-btn {
+                font-size: 12px;
+                flex-grow: 1;
+                justify-content: center;
+                padding: 7px 10px;
+            }
+
+            .test-modal-trigger-btn {
+                width: 100%;
+                justify-content: center;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .test-modal-content {
+                border-radius: 14px;
+            }
+
+            .test-modal-header h2 span.emoji {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <button id="test-modal-open-btn" class="test-modal-trigger-btn">பொது அறிவு வினாக்களைக் காண</button>
+    <!-- Trigger Button -->
+    <button id="test-modal-open-btn" class="test-modal-trigger-btn">
+        <span class="icon">💡</span>
+        <span>பொது அறிவு வினாக்களைக் காண</span>
+    </button>
 
+    <!-- Modal -->
     <div id="test-modal-quiz-modal" class="modal">
         <div class="test-modal-content">
-            
+
+            <!-- Sticky Header -->
             <div class="test-modal-header">
-                <button class="test-modal-close-btn" id="test-modal-close-btn">&times;</button>
-                <h2>💡 அறிவை மேம்படுத்த 10 கேள்விகள்</h2>
+                <div class="header-top-row">
+                    <div class="badge-pill">
+                        <span class="dot"></span>
+                        Daily GK Practice
+                    </div>
+                    <button class="test-modal-close-btn" id="test-modal-close-btn" aria-label="Close quiz">
+                        &times;
+                    </button>
+                </div>
+                <h2>
+                    <span class="emoji">🧠</span>
+                    அறிவை மேம்படுத்த 10 கேள்விகள்
+                </h2>
+                <p class="test-modal-subtitle">
+                    ஒவ்வொரு கேள்வியையும் பதிலை தெரிந்ததும் மட்டும் வெளிப்படுத்து. இப்படி பயிற்சி செய்தால் நினைவில் நன்கு பதியும்.
+                </p>
             </div>
-            
+
+            <!-- Body -->
             <div class="test-modal-body">
                 <div class="question-item">
-                    <p>1 :இந்தியாவின் முதல் பெண் பிரதமர் யார்?</p>
-                    <div class="answer">பதில்: **இந்திரா காந்தி**</div>
+                    <p>1 : இந்தியாவின் முதல் பெண் பிரதமர் யார்?</p>
+                    <div class="answer">பதில்: <strong>இந்திரா காந்தி</strong></div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
 
                 <div class="question-item">
-                    <p> 2: தமிழ்நாட்டின் மாநில விலங்கு எது?</p>
-                    <div class="answer">பதில்: **நீலகிரி வரையாடு** (Nilgiri Tahr)</div>
+                    <p>2 : தமிழ்நாட்டின் மாநில விலங்கு எது?</p>
+                    <div class="answer">பதில்: <strong>நீலகிரி வரையாடு</strong> (Nilgiri Tahr)</div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 3: சூரிய குடும்பத்தில் உள்ள மிகப்பெரிய கிரகம் எது?</p>
-                    <div class="answer">பதில்: **வியாழன்** (Jupiter)</div>
+                    <p>3 : சூரிய குடும்பத்தில் உள்ள மிகப்பெரிய கிரகம் எது?</p>
+                    <div class="answer">பதில்: <strong>வியாழன்</strong> (Jupiter)</div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 4: உலகிலேயே மிக நீளமான நதி எது?</p>
-                    <div class="answer">பதில்: **நைல் நதி**</div>
+                    <p>4 : உலகிலேயே மிக நீளமான நதி எது?</p>
+                    <div class="answer">பதில்: <strong>நைல் நதி</strong></div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 5: 'இந்தியாவின் முதுகெலும்பு' என்று அழைக்கப்படுவது எது?</p>
-                    <div class="answer">பதில்: **விவசாயம்** (Agriculture)</div>
+                    <p>5 : 'இந்தியாவின் முதுகெலும்பு' என்று அழைக்கப்படுவது எது?</p>
+                    <div class="answer">பதில்: <strong>விவசாயம்</strong> (Agriculture)</div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 6: ஒரு கிலோகிராம் (Kilogram) என்பது எத்தனை கிராம்?</p>
-                    <div class="answer">பதில்: **1000 கிராம்**</div>
+                    <p>6 : ஒரு கிலோகிராம் (Kilogram) என்பது எத்தனை கிராம்?</p>
+                    <div class="answer">பதில்: <strong>1000 கிராம்</strong></div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 7: நோபல் பரிசு எத்தனை பிரிவுகளில் வழங்கப்படுகிறது?</p>
-                    <div class="answer">பதில்: **6 பிரிவுகள்** (அமைதி, இயற்பியல், வேதியியல், மருத்துவம், இலக்கியம், பொருளாதாரம்)</div>
+                    <p>7 : நோபல் பரிசு எத்தனை பிரிவுகளில் வழங்கப்படுகிறது?</p>
+                    <div class="answer">
+                        பதில்:
+                        <strong>6 பிரிவுகள்</strong>
+                        (அமைதி, இயற்பியல், வேதியியல், மருத்துவம், இலக்கியம், பொருளாதாரம்)
+                    </div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 8: உலக மக்கள் தொகை தினம் எப்போது அனுசரிக்கப்படுகிறது?</p>
-                    <div class="answer">பதில்: **ஜூலை 11**</div>
+                    <p>8 : உலக மக்கள் தொகை தினம் எப்போது அனுசரிக்கப்படுகிறது?</p>
+                    <div class="answer">பதில்: <strong>ஜூலை 11</strong></div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 9: அணுவின் மூன்று அடிப்படை துகள்கள் யாவை?</p>
-                    <div class="answer">பதில்: **புரோட்டான், நியூட்ரான் மற்றும் எலக்ட்ரான்**</div>
+                    <p>9 : அணுவின் மூன்று அடிப்படை துகள்கள் யாவை?</p>
+                    <div class="answer">
+                        பதில்:
+                        <strong>புரோட்டான், நியூட்ரான் மற்றும் எலக்ட்ரான்</strong>
+                    </div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-                
+
                 <div class="question-item">
-                    <p> 10: சுதந்திர இந்தியாவின் முதல் குடியரசுத் தலைவர் யார்?</p>
-                    <div class="answer">பதில்: **டாக்டர் ராஜேந்திர பிரசாத்**</div>
+                    <p>10 : சுதந்திர இந்தியாவின் முதல் குடியரசுத் தலைவர் யார்?</p>
+                    <div class="answer">பதில்: <strong>டாக்டர் ராஜேந்திர பிரசாத்</strong></div>
                     <div class="reveal-container">
                         <button class="reveal-btn">பதிலை வெளிப்படுத்து</button>
                     </div>
                 </div>
-            </div> 
-            
+            </div>
         </div>
     </div>
 
-    <script>
-        // --- JavaScript Functionality (Updated for Auto-Open on First Load) ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('test-modal-quiz-modal');
-            const openBtn = document.getElementById('test-modal-open-btn');
-            const closeBtn = document.getElementById('test-modal-close-btn'); 
-            const revealButtons = document.querySelectorAll('.reveal-btn');
-            
-            // Key name for local storage
-            const HAS_SEEN_QUIZ_KEY = 'testModalQuizSeen'; 
+     <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-            // --- Function to open the modal ---
+            const modal = document.getElementById("test-modal-quiz-modal");
+            const openBtn = document.getElementById("test-modal-open-btn");
+            const closeBtn = document.getElementById("test-modal-close-btn");
+            const revealButtons = document.querySelectorAll(".reveal-btn");
+
+            // DAILY AUTO OPEN LOGIC
+            const today = new Date().toISOString().slice(0, 10); // "2025-11-24"
+            const LAST_OPEN_DATE = "lastTestModalOpenDate";
+            const savedDate = localStorage.getItem(LAST_OPEN_DATE);
+
             const openModal = () => {
-                modal.style.display = 'flex'; 
-                setTimeout(() => {
-                    modal.classList.add('is-visible');
-                }, 10);
-                document.body.style.overflow = 'hidden'; 
-                
-                // Set local storage flag upon opening (automatic or by click)
-                localStorage.setItem(HAS_SEEN_QUIZ_KEY, 'true');
-                
-                // Once the quiz is opened, make the button visible for future manual access
-                openBtn.classList.add('is-ready');
+                modal.style.display = "flex";
+                setTimeout(() => modal.classList.add("is-visible"), 10);
+                document.body.style.overflow = "hidden";
             };
 
-            // --- Function to close the modal ---
             const closeModal = () => {
-                modal.classList.remove('is-visible');
-                document.body.style.overflow = 'auto'; 
-                
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    // Ensure the button is visible after closing the modal, as the user has now seen it.
-                    openBtn.classList.add('is-ready');
-                }, 500); 
+                modal.classList.remove("is-visible");
+                document.body.style.overflow = "auto";
+                setTimeout(() => modal.style.display = "none", 400);
             };
-            
-            // --- AUTO-OPEN LOGIC (5 seconds after page load) ---
-            window.addEventListener('load', () => {
-                // Check local storage: if the user has NOT seen it, auto-open after 5 seconds
-                if (!localStorage.getItem(HAS_SEEN_QUIZ_KEY)) {
+
+            window.addEventListener("load", () => {
+                if (savedDate !== today) {
                     setTimeout(() => {
-                        // This will set the localStorage flag and open the modal
-                        openModal(); 
-                    }, 5000); // 5000 milliseconds = 5 seconds
+                        openModal();
+                        localStorage.setItem(LAST_OPEN_DATE, today);
+                        openBtn.classList.add("is-ready");
+                    }, 5000);
                 } else {
-                    // If the user HAS seen it before, make the manual open button available immediately
-                    openBtn.classList.add('is-ready');
-                }
-            });
-            
-            // --- Event Listeners for Manual Control ---
-            openBtn.addEventListener('click', () => {
-                // This click listener handles subsequent manual opening (when the button is visible)
-                 if (openBtn.classList.contains('is-ready')) {
-                    modal.style.display = 'flex';
-                    setTimeout(() => {
-                        modal.classList.add('is-visible');
-                    }, 10);
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-            
-            closeBtn.addEventListener('click', closeModal);
-
-            // Close when the Escape key is pressed
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
-                    closeModal();
+                    openBtn.classList.add("is-ready");
                 }
             });
 
-            // --- Answer Reveal Logic ---
-            revealButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const questionItem = button.closest('.question-item'); 
-                    const answerDiv = questionItem.querySelector('.answer');
-                    
-                    answerDiv.classList.toggle('is-revealed');
-                    button.classList.toggle('hide-state');
-                    
-                    if (answerDiv.classList.contains('is-revealed')) {
-                        button.textContent = 'பதிலை மறை';
-                    } else {
-                        button.textContent = 'பதிலை வெளிப்படுத்து';
-                    }
+            openBtn.addEventListener("click", openModal);
+            closeBtn.addEventListener("click", closeModal);
+
+            revealButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const answer = btn.closest(".question-item").querySelector(".answer");
+                    answer.style.display = answer.style.display === "block" ? "none" : "block";
+                    btn.classList.toggle("hide-state");
+                    btn.textContent = btn.classList.contains("hide-state") ? "பதிலை மறை" : "பதிலை வெளிப்படுத்து";
                 });
             });
+
+            modal.addEventListener("click", e => {
+                if (e.target === modal) closeModal();
+            });
+
         });
     </script>
 </body>
